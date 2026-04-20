@@ -1,0 +1,180 @@
+/* Global styles cleared as per user request to remove Tailwind */
+body {
+  /* Minimal reset or empty if Understrap takes over */
+}
+
+.all-sec-lastform.sec-padd {
+  display: none !important;
+}
+
+#loading,
+#test,
+#whois {
+  display: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li {
+  font-family: "Consid Sans " !important;
+}
+
+/* Enable hover for dropdown menus on desktop with high specificity */
+@media (min-width: 768px) {
+  .navbar-nav .dropdown:hover>.dropdown-menu {
+    display: block !important;
+    margin-top: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Fallback background for overlay sections if image is missing */
+.bl-overlay {
+  background-color: #2c3e50;
+}
+
+
+.main-form p select,
+.main-form p textarea,
+.main-form p input[type="number"],
+.main-form p input[type="text"],
+.main-form p input[type="email"],
+.main-form p input[type="tel"] {
+    width: 100%;
+}
+
+
+
+.cnt7-chtkbox label {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.cnt7-chtkbox label input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.cnt7-chtkbox label span {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.hm-getaquote-inner .hm-col-frm .wd-100 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Domain search loading dots animation */
+@keyframes wdc-jump {
+    0%, 60%, 100% { transform: translateY(0px); opacity: 0.3; }
+    30% { transform: translateY(-10px); opacity: 1; }
+}
+.wdc-dot-1 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0s; }
+.wdc-dot-2 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.18s; }
+.wdc-dot-3 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.36s; }
+
+/* Career form — override bl-custom.css hm-getforms styles */
+.career-template .main-form p input,
+.career-template .main-form p input[type="text"],
+.career-template .main-form p input[type="tel"],
+.career-template .main-form p input[type="email"],
+.career-template .main-form p select,
+.career-template .main-form p textarea {
+    border: solid 1px #b2b2b2 !important;
+    border-bottom: solid 1px #b2b2b2 !important;
+    border-radius: 5px !important;
+    padding: 10px 15px !important;
+    padding-left: 15px !important;
+    margin: 10px 0 !important;
+    color: #4f4f4f !important;
+    width: 100%;
+}
+
+/* Nav link font — match live site (single line) */
+ul#main-menu li a.nav-link {
+    font-size: 14px;
+    font-family: "Consid Sans", sans-serif !important;
+    color: #3a3a3a !important;
+    text-decoration: none;
+    transition: 0.3s all;
+    line-height: 1.4;
+    font-weight: 400;
+    white-space: nowrap;
+    padding: 8px 10px;
+}
+
+ul#main-menu li a.nav-link:hover {
+    color: #50c1ed !important;
+}
+
+ul#main-menu .dropdown-item {
+    font-size: 14px;
+    font-family: "Consid Sans", sans-serif !important;
+    color: #3a3a3a;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+/* Navbar — transparent on desktop, white on mobile (matches live site) */
+nav#main-nav {
+    background: transparent !important;
+    padding: 20px 0;
+    border-bottom: solid 2px #dbdbdb;
+}
+
+@media only screen and (max-width: 1024px) {
+    nav#main-nav {
+        background: #fff !important;
+        margin-top: -1px;
+    }
+}
+
+/* Navbar toggler — black background like live site */
+.navbar-expand-md .navbar-toggler {
+    background: #000 !important;
+}
+@media (max-width: 767px) {
+    #navbarNavDropdown {
+        display: none !important;
+    }
+    .navbar-toggler {
+        display: none !important;
+    }
+}
+
+/* Always show the DeskSidebar hamburger button */
+.desk-show {
+    display: inline-flex !important;
+}
+
+/* Force sidebar hamburger always visible on all screen sizes */
+#wrapper-navbar .navbar > .container > button[aria-label="Open menu"] {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+.hm-getforms p input, .hm-getforms p input[type="text"], .main-form p input[type="tel"], .hm-getforms p input[type="email"], .hm-getforms p select, .hm-getforms p textarea {
+    border: 0 !important;
+    border-bottom: solid 1px #3a3a3a !important;
+    margin: 0px;
+    padding-left: 0;
+    color: #3a3a3a;
+    border-radius: 0px !important;
+}
