@@ -424,6 +424,65 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(style);
 });
 
+  // SP Easy Accordion — init for headless Next.js (no WP plugin JS)
+  function initSpAccordion() {
+    jQuery('.sp-easy-accordion').each(function () {
+      var $accordion = jQuery(this);
+
+      // Already initialized — skip
+      if ($accordion.data('sp-init')) return;
+      $accordion.data('sp-init', true);
+
+      var $items = $accordion.find('.sp-ea-single');
+
+      // Inject +/- icon into each header link if not already there
+      $items.each(function () {
+        var $header = jQuery(this).find('.ea-header a');
+        if (!$header.find('.sp-ea-icon').length) {
+          $header.append('<span class="sp-ea-icon"><span class="sp-ea-plus">+</span><span class="sp-ea-minus">−</span></span>');
+        }
+        // Hide body initially
+        jQuery(this).find('.ea-body').hide();
+      });
+
+      // Open first item by default
+      var $first = $items.first();
+      $first.addClass('ea-expand');
+      $first.find('.ea-body').show();
+
+      // Click handler
+      $items.find('.ea-header a').off('click.spea').on('click.spea', function (e) {
+        e.preventDefault();
+        var $item = jQuery(this).closest('.sp-ea-single');
+        var isOpen = $item.hasClass('ea-expand');
+
+        // Close all
+        $items.removeClass('ea-expand');
+        $items.find('.ea-body').slideUp(250);
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          $item.addClass('ea-expand');
+          $item.find('.ea-body').slideDown(250);
+        }
+      });
+    });
+  }
+
+  // Run on page load and after Next.js route changes
+  jQuery(document).ready(function () {
+    setTimeout(initSpAccordion, 400);
+  });
+
+  // Re-init on Next.js client navigation (pushState)
+  (function () {
+    var _orig = history.pushState;
+    history.pushState = function () {
+      _orig.apply(history, arguments);
+      setTimeout(initSpAccordion, 600);
+    };
+  })();
+
   }); // End of waitForJQuery callback
 })(); // End of IIFE
 

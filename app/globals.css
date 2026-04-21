@@ -1072,3 +1072,124 @@ nav#main-nav .container {
         width: 180px !important;
     }
 }
+
+/* =============================================
+   SP EASY ACCORDION — Products page FAQ
+   ============================================= */
+
+.sp-easy-accordion {
+    max-width: 100%;
+}
+
+.sp-easy-accordion .sp-ea-single {
+    background: transparent !important;
+    border: 2px solid #50c1ed !important;
+    margin-bottom: 15px !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-header {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-header a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 18px 25px !important;
+    color: #090b2c !important;
+    font-size: 22px !important;
+    line-height: 30px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+}
+
+/* Active (open) state — blue background */
+.sp-easy-accordion .sp-ea-single.ea-expand .ea-header a {
+    background: #50c1ed !important;
+    color: #fff !important;
+}
+
+/* Icon container */
+.sp-easy-accordion .sp-ea-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    flex-shrink: 0 !important;
+    margin-left: 15px !important;
+    color: #090b2c !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Plus icon — show when closed */
+.sp-easy-accordion .sp-ea-single .sp-ea-plus {
+    display: inline-block !important;
+}
+
+.sp-easy-accordion .sp-ea-single .sp-ea-minus {
+    display: none !important;
+}
+
+/* Minus icon — show when open */
+.sp-easy-accordion .sp-ea-single.ea-expand .sp-ea-plus {
+    display: none !important;
+}
+
+.sp-easy-accordion .sp-ea-single.ea-expand .sp-ea-minus {
+    display: inline-block !important;
+}
+
+/* Icon color when open */
+.sp-easy-accordion .sp-ea-single.ea-expand .sp-ea-icon {
+    color: #fff !important;
+}
+
+/* Body content */
+.sp-easy-accordion .sp-ea-single .ea-body {
+    padding: 20px 25px !important;
+    background: #fff !important;
+    color: #3a3a3a !important;
+    font-size: 18px !important;
+    line-height: 28px !important;
+    border-top: 1px solid #e0e0e0 !important;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-body p {
+    margin-bottom: 15px !important;
+    padding-bottom: 0 !important;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-body p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sp-easy-accordion .sp-ea-single .ea-header a {
+        font-size: 18px !important;
+        line-height: 26px !important;
+        padding: 15px 20px !important;
+    }
+
+    .sp-easy-accordion .sp-ea-single .ea-body {
+        padding: 15px 20px !important;
+        font-size: 16px !important;
+        line-height: 26px !important;
+    }
+
+    .sp-easy-accordion .sp-ea-icon {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 20px !important;
+        margin-left: 10px !important;
+    }
+}
