@@ -1296,3 +1296,74 @@ nav#main-nav .container {
         width: 100% !important;
     }
 }
+
+/* =============================================
+   OUR PARTNERS PAGE — slider & heading fixes
+   ============================================= */
+
+/* Strip any WP editor highlight from headings */
+.our-partners-template h2 mark,
+.our-partners-template h2 span[style] {
+    background: none !important;
+    color: inherit !important;
+    padding: 0 !important;
+}
+
+/* "OUR PARTNERS" label — small uppercase */
+.op-orpartners-inner .wd-100 h5 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #3a3a3a !important;
+    padding-bottom: 10px !important;
+}
+
+/* "Over More Than 45+ Company Trust Us" — force single line */
+.op-orpartners-inner .wd-100 h2 {
+    white-space: nowrap !important;
+    font-size: clamp(22px, 3.5vw, 48px) !important;
+    line-height: 1.2 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Partner slider — each slide shows two logos side by side */
+.op-prtnrsldr .swiper-slide.op-slide-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    padding: 20px !important;
+}
+
+.op-prtnrsldr .op-slide-img {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    max-width: 50% !important;
+}
+
+.op-prtnrsldr .op-slide-img img {
+    max-height: 80px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 574px) {
+    .op-prtnrsldr .swiper-slide.op-slide-inner {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .op-prtnrsldr .op-slide-img {
+        max-width: 100% !important;
+    }
+
+    .op-prtnrsldr .op-slide-img img {
+        max-height: 60px !important;
+    }
+}
