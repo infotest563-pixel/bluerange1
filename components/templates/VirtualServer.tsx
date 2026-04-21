@@ -21,6 +21,25 @@ export default async function VirtualServer({ page }: { page: any }) {
     const bannerImg = await resolveImage(acf.seo_company_image);
     const takeFirstBg = await resolveImage(acf.take_your_first_background_image);
 
+    const lang: string = page.lang
+        || (typeof page.link === 'string' && page.link.includes('/sv/') ? 'sv' : 'en');
+
+    const resolveUrl = (url: string) => {
+        if (!url) return '#';
+        const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
+        if (url.startsWith(WP_HOST)) {
+            let path = url.replace(WP_HOST, '') || '/';
+            if (path.includes('?page_id=')) return `/${lang}`;
+            if (path.startsWith('/en/') || path.startsWith('/sv/')) return path;
+            return `/${lang}${path}`;
+        }
+        if (url.startsWith('/') && !url.startsWith('/en/') && !url.startsWith('/sv/')) {
+            if (url.includes('?page_id=')) return `/${lang}`;
+            return `/${lang}${url}`;
+        }
+        return url;
+    };
+
     // Resolve repeater images
     const flexibleScalable = await Promise.all((acf.flexible_and_scalable || []).map(async (row: any) => ({
         ...row,
@@ -123,7 +142,7 @@ export default async function VirtualServer({ page }: { page: any }) {
                             <div className="wd-100 tx-wht">
                                 {acf.take_your_first_title && <h3>{acf.take_your_first_title}</h3>}
                                 {acf.contact_support && (
-                                    <Link className="btn" href={acf.contact_support.url} role="button">
+                                    <Link className="btn" href={resolveUrl(acf.contact_support.url)} role="button">
                                         {acf.contact_support.title}
                                     </Link>
                                 )}

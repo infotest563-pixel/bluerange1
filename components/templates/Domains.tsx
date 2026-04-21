@@ -6,6 +6,25 @@ import DomainSearch from '../DomainSearch';
 export default async function Domains({ page }: { page: any }) {
     const acf = page.acf;
 
+    const lang: string = page.lang
+        || (typeof page.link === 'string' && page.link.includes('/sv/') ? 'sv' : 'en');
+
+    const resolveUrl = (url: string) => {
+        if (!url) return '#';
+        const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
+        if (url.startsWith(WP_HOST)) {
+            let path = url.replace(WP_HOST, '') || '/';
+            if (path.includes('?page_id=')) return `/${lang}`;
+            if (path.startsWith('/en/') || path.startsWith('/sv/')) return path;
+            return `/${lang}${path}`;
+        }
+        if (url.startsWith('/') && !url.startsWith('/en/') && !url.startsWith('/sv/')) {
+            if (url.includes('?page_id=')) return `/${lang}`;
+            return `/${lang}${url}`;
+        }
+        return url;
+    };
+
     const resolveImage = async (field: any) => {
         if (!field) return '';
         if (typeof field === 'string') return field;
@@ -38,7 +57,7 @@ export default async function Domains({ page }: { page: any }) {
                     </div>
                     {acf.button_link && acf.button_title && (
                         <div className="hm-takebtn-inner text-center">
-                            <Link className="btn" href={acf.button_link} role="button">
+                            <Link className="btn" href={resolveUrl(acf.button_link)} role="button">
                                 {acf.button_title}
                             </Link>
                         </div>

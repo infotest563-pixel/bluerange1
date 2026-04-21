@@ -273,7 +273,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                     </div>
                     {acf.contact_support_button && (
                         <div className="hm-takebtn-inner text-center">
-                            <Link className="btn" href={acf.contact_support_button.url} role="button" target={acf.contact_support_button.target || '_self'}>
+                            <Link className="btn" href={resolveUrl(acf.contact_support_button.url)} role="button" target={acf.contact_support_button.target || '_self'}>
                                 {acf.contact_support_button.title}
                             </Link>
                         </div>
