@@ -44,8 +44,8 @@ jQuery(document).ready(function () {
   });
 
   //------- section in class add ------------//
-  jQuery(window).scroll(function () {
-    jQuery(".row , .bl-inners").each(function (i) {
+  function checkAnimations() {
+    jQuery(".row , .bl-inners").each(function () {
       var $element = jQuery(this);
       var bottom_of_object =
         $element.offset().top + $element.outerHeight() * 0.6;
@@ -55,10 +55,21 @@ jQuery(document).ready(function () {
       if (bottom_of_window > bottom_of_object) {
         setTimeout(function () {
           $element.addClass("animated");
-        }, 400); // 1000 milliseconds (1 second) delay
+        }, 400);
       }
     });
+  }
+
+  // Run on scroll
+  jQuery(window).scroll(checkAnimations);
+
+  // Also run on page load — catches elements already in viewport
+  jQuery(window).on("load", function () {
+    setTimeout(checkAnimations, 200);
   });
+
+  // Also run immediately in case load already fired
+  setTimeout(checkAnimations, 300);
 
   // jQuery(window).scroll(function () {
   //     jQuery('.row').each(function (i) {

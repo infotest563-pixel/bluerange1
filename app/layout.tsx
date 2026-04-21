@@ -173,6 +173,19 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                   _pushState.apply(history, arguments);
                   setTimeout(initSwipers, 500);
                   setTimeout(initMap, 700);
+                  // Re-trigger scroll animations for new page content
+                  setTimeout(function() {
+                    if (typeof jQuery !== 'undefined') {
+                      jQuery(".row , .bl-inners").each(function () {
+                        var $el = jQuery(this);
+                        var bot_obj = $el.offset().top + $el.outerHeight() * 0.6;
+                        var bot_win = jQuery(window).scrollTop() + jQuery(window).height();
+                        if (bot_win > bot_obj) {
+                          setTimeout(function() { $el.addClass("animated"); }, 400);
+                        }
+                      });
+                    }
+                  }, 600);
                 };
               }
             `
