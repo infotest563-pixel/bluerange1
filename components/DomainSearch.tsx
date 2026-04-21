@@ -155,7 +155,7 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                                     fontWeight: 700,
                                     color: item.available ? '#50c1ed' : '#ff6b6b',
                                 }}>
-                                    {item.available ? '✓' : '✗'}
+                                    {item.available ? 'yes' : 'no'}
                                 </span>
                                 <span style={{
                                     fontSize: 17,
