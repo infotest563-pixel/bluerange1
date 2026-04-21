@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getMedia } from '../lib/wp';
 import ContactForm from './ContactForm';
 import DomainSearch from './DomainSearch';
+import { resolveUrl } from '../lib/resolveUrl';
 
 export default async function DesignedHomepage({ page, lang = 'en' }: { page: any; lang?: string }) {
     const acf = page.acf;
@@ -75,23 +76,6 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
         return '';
     };
 
-    const resolveUrl = (url: string) => {
-        const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
-        if (!url) return '#';
-        if (url.startsWith(WP_HOST)) {
-            let path = url.replace(WP_HOST, '') || '/';
-            // Strip ?page_id= query params
-            if (path.includes('?page_id=')) return `/${lang}`;
-            if (path.startsWith('/en/') || path.startsWith('/sv/')) return path;
-            return `/${lang}${path}`;
-        }
-        if (url.startsWith('/') && !url.startsWith('/en/') && !url.startsWith('/sv/')) {
-            if (url.includes('?page_id=')) return `/${lang}`;
-            return `/${lang}${url}`;
-        }
-        return url;
-    };
-
     //return (
     return (
         <>
@@ -127,7 +111,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                                         </div>
                                         <h4>{row.services_title}</h4>
                                         <p>{row.services_content}</p>
-                                        <Link className="btn" href={resolveUrl(row.view_more_url)} role="button">
+                                        <Link className="btn" href={resolveUrl(row.view_more_url, lang)} role="button">
                                             {row.view_more_button_text || 'View More'}
                                         </Link>
                                     </div>
@@ -174,7 +158,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                         <div className="bl-box col-sm-12 col-md-12 text-center">
                             {acf.contact_us_button && (
                                 <div className="wd-100">
-                                    <Link className="btn" href={resolveUrl(acf.contact_us_button.url)} role="button" target={acf.contact_us_button.target || '_self'}>
+                                    <Link className="btn" href={resolveUrl(acf.contact_us_button.url, lang)} role="button" target={acf.contact_us_button.target || '_self'}>
                                         {acf.contact_us_button.title}
                                     </Link>
                                 </div>
@@ -273,7 +257,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                     </div>
                     {acf.contact_support_button && (
                         <div className="hm-takebtn-inner text-center">
-                            <Link className="btn" href={resolveUrl(acf.contact_support_button.url)} role="button" target={acf.contact_support_button.target || '_self'}>
+                            <Link className="btn" href={resolveUrl(acf.contact_support_button.url, lang)} role="button" target={acf.contact_support_button.target || '_self'}>
                                 {acf.contact_support_button.title}
                             </Link>
                         </div>
