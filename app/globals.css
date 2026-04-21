@@ -729,7 +729,8 @@ nav#main-nav .container {
 .products-template .all-sec-lastform,
 .microsoft-template .all-sec-lastform,
 .web-hotel-template .all-sec-lastform,
-.broadband-template .all-sec-lastform {
+.broadband-template .all-sec-lastform,
+.screenconnect-template .all-sec-lastform {
     display: block !important;
     background: #a7d4e7;
 }
@@ -740,7 +741,8 @@ nav#main-nav .container {
 .products-template .all-sec-lastform h2,
 .microsoft-template .all-sec-lastform h2,
 .web-hotel-template .all-sec-lastform h2,
-.broadband-template .all-sec-lastform h2 {
+.broadband-template .all-sec-lastform h2,
+.screenconnect-template .all-sec-lastform h2 {
     color: #fff !important;
 }
 
