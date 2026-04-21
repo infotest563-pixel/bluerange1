@@ -727,7 +727,8 @@ nav#main-nav .container {
 .security-awareness-template .all-sec-lastform,
 .our-partners-template .all-sec-lastform,
 .products-template .all-sec-lastform,
-.microsoft-template .all-sec-lastform {
+.microsoft-template .all-sec-lastform,
+.web-hotel-template .all-sec-lastform {
     display: block !important;
     background: #a7d4e7;
 }
@@ -736,7 +737,8 @@ nav#main-nav .container {
 .security-awareness-template .all-sec-lastform h2,
 .our-partners-template .all-sec-lastform h2,
 .products-template .all-sec-lastform h2,
-.microsoft-template .all-sec-lastform h2 {
+.microsoft-template .all-sec-lastform h2,
+.web-hotel-template .all-sec-lastform h2 {
     color: #fff !important;
 }
 
