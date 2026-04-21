@@ -56,9 +56,9 @@ export default async function Domains({ page }: { page: any }) {
             {/* Get in Touch */}
             <section className="all-sec-lastform sec-padd">
                 <div className="container">
-                    <div className="row all-lastform-inner tx-wht animated">
+                    <div className="row all-lastform-inner tx-wht">
                         <div className="bl-box col-md-12 all-lstform cu-formbx">
-                            <div className="wd-100">
+                            <div className="wd-100 fade-in-top">
                                 <h2 className="mb-3">get in touch</h2>
                                 <DomainsContactForm />
                             </div>
