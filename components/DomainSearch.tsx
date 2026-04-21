@@ -5,12 +5,15 @@ import { useState } from 'react';
 export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonText?: string }) {
     const [domain, setDomain] = useState('');
     const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<null | { available: boolean; domain: string }>(null);
 
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
         const raw = domain.trim();
         if (!raw) return;
+
         setLoading(true);
+        setResult(null);
 
         try {
             const body = new URLSearchParams({
@@ -24,70 +27,110 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                 body: body.toString(),
             });
             const json = await res.json();
-
-            if (json?.success) {
-                // Domain available — redirect
-                window.location.href = `/?s=${encodeURIComponent(raw)}&post_type=domain`;
-            } else {
-                // Domain not available — stop animation, stay on page
-                setLoading(false);
-            }
+            setResult({ available: !!json?.success, domain: raw });
         } catch {
+            setResult({ available: false, domain: raw });
+        } finally {
             setLoading(false);
         }
     };
 
     return (
         <div style={{ maxWidth: 704, margin: '0 auto', paddingBottom: 20 }}>
-            <form onSubmit={handleSearch} style={{ display: 'flex' }}>
+            <form
+                onSubmit={handleSearch}
+                className="take-form"
+                style={{ display: 'flex', borderRadius: 50, overflow: 'hidden', background: '#fff' }}
+            >
                 <input
                     type="text"
                     className="form-control"
-                    // placeholder="yourdomain.com"
+                    placeholder="yourdomain.com"
                     value={domain}
                     onChange={(e) => setDomain(e.target.value)}
                     disabled={loading}
                     style={{
                         flex: 1,
-                        borderRadius: '4px 0 0 4px',
                         border: 'none',
-                        padding: '12px 16px',
+                        padding: '14px 22px',
                         fontSize: '16px',
                         outline: 'none',
+                        background: 'transparent',
+                        borderRadius: '50px 0 0 50px',
+                        color: '#3a3a3a',
                     }}
                 />
                 <button
                     type="submit"
+                    className="btn"
                     disabled={loading}
                     style={{
-                        borderRadius: '0 4px 4px 0',
-                        backgroundColor: '#4fc3d9',
+                        borderRadius: '0 50px 50px 0',
+                        backgroundColor: '#50c1ed',
                         color: '#fff',
-                        padding: '12px 24px',
+                        padding: '14px 28px',
                         border: 'none',
                         cursor: loading ? 'not-allowed' : 'pointer',
                         whiteSpace: 'nowrap',
                         minWidth: 150,
-                        fontSize: '15px',
+                        fontSize: '16px',
                         opacity: loading ? 0.75 : 1,
+                        transition: '0.3s all',
                     }}
                 >
-                    {buttonText}
+                    {loading ? 'Searching...' : buttonText}
                 </button>
             </form>
 
-            {/* SVG dots — immune to swiper/bootstrap overrides */}
+            {/* Loading dots */}
             {loading && (
-                <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
-                    <svg className="wdc-dot-1" width="8" height="8" viewBox="0 0 14 14" style={{ display: 'block', overflow: 'visible' }}>
-                        <circle cx="7" cy="7" r="7" fill="#4fc3d9" />
-                    </svg>
-                    <svg className="wdc-dot-2" width="8" height="8" viewBox="0 0 14 14" style={{ display: 'block', overflow: 'visible' }}>
-                        <circle cx="7" cy="7" r="7" fill="#4fc3d9" />
-                    </svg>
-                    <svg className="wdc-dot-3" width="8" height="8" viewBox="0 0 14 14" style={{ display: 'block', overflow: 'visible' }}>
-                        <circle cx="7" cy="7" r="7" fill="#4fc3d9" />
-                    </svg>
+                <div style={{
+                    marginTop: 18,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 10,
+                }}>
+                    <span className="wdc-dot-1" style={{
+                        display: 'inline-block',
+                        width: 10,
+                        height: 10,
+                        borderRadius: '50%',
+                        background: '#50c1ed',
+                    }} />
+                    <span className="wdc-dot-2" style={{
+                        display: 'inline-block',
+                        width: 10,
+                        height: 10,
+                        borderRadius: '50%',
+                        background: '#50c1ed',
+                    }} />
+                    <span className="wdc-dot-3" style={{
+                        display: 'inline-block',
+                        width: 10,
+                        height: 10,
+                        borderRadius: '50%',
+                        background: '#50c1ed',
+                    }} />
+                </div>
+            )}
+
+            {/* Result message */}
+            {result && (
+                <div style={{
+                    marginTop: 18,
+                    padding: '12px 20px',
+                    borderRadius: 8,
+                    background: result.available ? 'rgba(80,193,237,0.15)' : 'rgba(255,80,80,0.1)',
+                    border: `1px solid ${result.available ? '#50c1ed' : '#ff5050'}`,
+                    color: result.available ? '#0a7a9e' : '#cc2222',
+                    fontSize: 16,
+                    fontWeight: 500,
+                    textAlign: 'center',
+                }}>
+                    {result.available
+                        ? `✓ "${result.domain}" is available!`
+                        : `✗ "${result.domain}" is not available.`}
                 </div>
             )}
         </div>
