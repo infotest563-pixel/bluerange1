@@ -75,13 +75,15 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               function initSwipers() {
                 if (typeof Swiper === 'undefined') return;
 
-                // Fantastic customers / logo sliders
+                // Fantastic customers / logo sliders — scoped navigation per instance
                 document.querySelectorAll('.hm-firstbnr').forEach(function(el) {
                   if (el.swiper) el.swiper.destroy(true, true);
+                  var nextBtn = el.querySelector('.swiper-button-next');
+                  var prevBtn = el.querySelector('.swiper-button-prev');
                   new Swiper(el, {
                     slidesPerView: 1, spaceBetween: 30, loop: true, speed: 1500,
                     autoplay: { delay: 1500, disableOnInteraction: false },
-                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    navigation: { nextEl: nextBtn, prevEl: prevBtn },
                     breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2}, 1024:{slidesPerView:5} }
                   });
                 });
@@ -102,7 +104,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                   new Swiper(el, {
                     slidesPerView: 2, spaceBetween: 30, loop: true, speed: 1500,
                     autoplay: { delay: 1000, disableOnInteraction: false },
-                    pagination: { el: '.swiper-pagination', clickable: true },
+                    pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
                     breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2} }
                   });
                 });
@@ -113,7 +115,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                   new Swiper(el, {
                     slidesPerView: 4, spaceBetween: 30, loop: true, speed: 1500,
                     autoplay: { delay: 1000, disableOnInteraction: false },
-                    pagination: { el: '.swiper-pagination', clickable: true },
+                    pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
                     breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2}, 1024:{slidesPerView:4} }
                   });
                 });
@@ -121,10 +123,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 // Our partners slider
                 document.querySelectorAll('.op-prtnrsldr').forEach(function(el) {
                   if (el.swiper) el.swiper.destroy(true, true);
+                  var nextBtn = el.querySelector('.swiper-button-next');
+                  var prevBtn = el.querySelector('.swiper-button-prev');
                   new Swiper(el, {
                     slidesPerView: 4, spaceBetween: 30, loop: true,
-                    pagination: { el: '.swiper-pagination', clickable: true },
-                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+                    navigation: { nextEl: nextBtn, prevEl: prevBtn },
                     breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:3}, 1024:{slidesPerView:4} }
                   });
                 });
@@ -134,9 +138,16 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                   if (el.swiper) el.swiper.destroy(true, true);
                   new Swiper(el, {
                     slidesPerView: 3, spaceBetween: 30, loop: true,
-                    pagination: { el: '.swiper-pagination', clickable: true },
+                    pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
                     breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2}, 1024:{slidesPerView:3} }
                   });
+                });
+
+                // Add sw-aropad class to swipers that have prev/next buttons
+                document.querySelectorAll('.swiper').forEach(function(el) {
+                  if (el.querySelector('.swiper-button-prev')) {
+                    el.classList.add('sw-aropad');
+                  }
                 });
               }
 
