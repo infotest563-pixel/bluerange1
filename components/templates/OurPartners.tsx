@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { getMedia } from '../../lib/wp';
 import DomainsContactForm from '../DomainsContactForm';
 
@@ -15,6 +14,16 @@ export default async function OurPartners({ page }: { page: any }) {
             return media?.source_url || '';
         }
         return '';
+    };
+
+    // Strip inline background/color styles from WP editor HTML (removes blue highlight on headings)
+    const stripHighlight = (html: string) => {
+        if (!html) return '';
+        return html
+            .replace(/style="[^"]*background[^"]*"/gi, '')
+            .replace(/style="[^"]*color[^"]*"/gi, '')
+            .replace(/<mark[^>]*>/gi, '<span>')
+            .replace(/<\/mark>/gi, '</span>');
     };
 
     const bannerBg = await resolveImage(acf.banner_background_image);
@@ -101,7 +110,9 @@ export default async function OurPartners({ page }: { page: any }) {
                         <div className="bl-box col-sm-12 col-md-12 text-center">
                             <div className="wd-100 tx-21 mx-800">
                                 {acf.our_partners_title && <h5>{acf.our_partners_title}</h5>}
-                                {acf.company_trust && <h2>{acf.company_trust}</h2>}
+                                {acf.company_trust && (
+                                    <h2 dangerouslySetInnerHTML={{ __html: stripHighlight(acf.company_trust) }} />
+                                )}
                                 {acf.our_partner_subtitle && <p>{acf.our_partner_subtitle}</p>}
                             </div>
                         </div>
@@ -111,9 +122,17 @@ export default async function OurPartners({ page }: { page: any }) {
                             <div className="swiper op-prtnrsldr">
                                 <div className="swiper-wrapper">
                                     {partnerImages.map((row: any, i: number) => (
-                                        <div key={i} className="swiper-slide wd-100">
-                                            {row.img1 && <img src={row.img1} className="img-fluid" alt="" />}
-                                            {row.img2 && <img src={row.img2} className="img-fluid" alt="" />}
+                                        <div key={i} className="swiper-slide op-slide-inner">
+                                            {row.img1 && (
+                                                <div className="op-slide-img">
+                                                    <img src={row.img1} className="img-fluid" alt="" />
+                                                </div>
+                                            )}
+                                            {row.img2 && (
+                                                <div className="op-slide-img">
+                                                    <img src={row.img2} className="img-fluid" alt="" />
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
