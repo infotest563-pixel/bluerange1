@@ -725,14 +725,16 @@ nav#main-nav .container {
 /* Show get in touch section on specific pages */
 .crowdsec-template .all-sec-lastform,
 .security-awareness-template .all-sec-lastform,
-.our-partners-template .all-sec-lastform {
+.our-partners-template .all-sec-lastform,
+.products-template .all-sec-lastform {
     display: block !important;
     background: #a7d4e7;
 }
 
 .crowdsec-template .all-sec-lastform h2,
 .security-awareness-template .all-sec-lastform h2,
-.our-partners-template .all-sec-lastform h2 {
+.our-partners-template .all-sec-lastform h2,
+.products-template .all-sec-lastform h2 {
     color: #fff !important;
 }
 
