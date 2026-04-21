@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getMedia } from '../../lib/wp';
-import ContactForm from '../ContactForm';
+import DomainsContactForm from '../DomainsContactForm';
 
 export default async function Broadband({ page }: { page: any }) {
     const acf = page.acf;
@@ -116,13 +116,13 @@ export default async function Broadband({ page }: { page: any }) {
             )}
 
             {/* Get in Touch */}
-            <section className="all-sec-lastform-vs sec-padd">
+            <section className="all-sec-lastform sec-padd">
                 <div className="container">
-                    <div className="row">
-                        <div className="bl-box col-md-12">
-                            <div className="wd-100 vs-getintouch-box">
-                                <h2 className="mb-3 text-center">Get in touch</h2>
-                                <ContactForm />
+                    <div className="row all-lastform-inner tx-wht">
+                        <div className="bl-box col-md-12 all-lstform cu-formbx">
+                            <div className="wd-100 fade-in-top">
+                                <h2 className="mb-3">get in touch</h2>
+                                <DomainsContactForm />
                             </div>
                         </div>
                     </div>
