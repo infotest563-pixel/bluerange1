@@ -2,10 +2,18 @@
 
 import { useState } from 'react';
 
+interface DomainResult {
+    domain: string;
+    available: boolean;
+    price?: string;
+    addToCartUrl?: string;
+}
+
 export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonText?: string }) {
     const [domain, setDomain] = useState('');
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<null | { available: boolean; domain: string }>(null);
+    const [results, setResults] = useState<DomainResult[]>([]);
+    const [searched, setSearched] = useState(false);
 
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -13,7 +21,8 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
         if (!raw) return;
 
         setLoading(true);
-        setResult(null);
+        setResults([]);
+        setSearched(false);
 
         try {
             const body = new URLSearchParams({
@@ -21,75 +30,82 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                 domain: raw,
                 item_id: '741',
             });
-            const res = await fetch('https://dev-bluerange.pantheonsite.io/wp-admin/admin-ajax.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: body.toString(),
-            });
+
+            const res = await fetch(
+                'https://dev-bluerange.pantheonsite.io/wp-admin/admin-ajax.php',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString(),
+                }
+            );
+
             const json = await res.json();
-            setResult({ available: !!json?.success, domain: raw });
+
+            // Parse WP domain check response
+            // Response can be: { success: true/false, data: [...] } or similar
+            if (json && json.data && Array.isArray(json.data)) {
+                setResults(json.data.map((item: any) => ({
+                    domain: item.domain || raw,
+                    available: item.available === true || item.status === 'available',
+                    price: item.price || item.register_price || '',
+                    addToCartUrl: item.add_to_cart_url || item.cart_url || '',
+                })));
+            } else if (json && typeof json.success !== 'undefined') {
+                // Simple success/fail response
+                setResults([{
+                    domain: raw,
+                    available: !!json.success,
+                    price: json.data?.price || '',
+                    addToCartUrl: json.data?.add_to_cart_url || '',
+                }]);
+            } else {
+                setResults([{ domain: raw, available: false }]);
+            }
         } catch {
-            setResult({ available: false, domain: raw });
+            setResults([{ domain: raw, available: false }]);
         } finally {
             setLoading(false);
+            setSearched(true);
         }
     };
 
     return (
-        <div style={{ maxWidth: 704, margin: '0 auto', paddingBottom: 20 }}>
-            <form
-                onSubmit={handleSearch}
-                className="take-form"
-                style={{ display: 'flex', borderRadius: 50, overflow: 'hidden', background: '#fff' }}
-            >
-                <input
-                    type="text"
-                    className="form-control"
-                    // placeholder="yourdomain.com"
-                    value={domain}
-                    onChange={(e) => setDomain(e.target.value)}
-                    disabled={loading}
-                    style={{
-                        flex: 1,
-                        border: 'none',
-                        padding: '14px 22px',
-                        fontSize: '16px',
-                        outline: 'none',
-                        background: 'transparent',
-                        borderRadius: '10px 0 0 10px',
-                        color: '#3a3a3a',
-                    }}
-                />
-                <button
-                    type="submit"
-                    className="btn"
-                    disabled={loading}
-                    style={{
-                        borderRadius: '0 50px 50px 0',
-                        backgroundColor: '#50c1ed',
-                        color: '#fff',
-                        padding: '14px 28px',
-                        border: 'none',
-                        cursor: loading ? 'not-allowed' : 'pointer',
-                        whiteSpace: 'nowrap',
-                        minWidth: 150,
-                        fontSize: '16px',
-                        opacity: loading ? 0.75 : 1,
-                        transition: '0.3s all',
-                    }}
-                >
-                    {loading ? 'Searching...' : buttonText}
-                </button>
+        <div id="wdc-style" style={{ maxWidth: 900, margin: '0 auto' }}>
+            <form onSubmit={handleSearch}>
+                <div className="input-group large" style={{ maxWidth: 900 }}>
+                    <input
+                        type="text"
+                        className="form-control"
+                        autoComplete="off"
+                        id="Search"
+                        name="domain"
+                        placeholder=""
+                        value={domain}
+                        onChange={(e) => setDomain(e.target.value)}
+                        disabled={loading}
+                    />
+                    <span className="input-group-btn">
+                        <button
+                            type="submit"
+                            id="Submit"
+                            className="btn btn-default btn-info"
+                            disabled={loading}
+                        >
+                            {loading ? 'Searching...' : buttonText}
+                        </button>
+                    </span>
+                </div>
             </form>
 
-            {/* Loading dots */}
+            {/* Loading dots animation */}
             {loading && (
-                <div style={{
-                    marginTop: 18,
+                <div id="loading" style={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     gap: 10,
+                    marginTop: 20,
                 }}>
                     <span className="wdc-dot-1" style={{
                         display: 'inline-block',
@@ -115,22 +131,73 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                 </div>
             )}
 
-            {/* Result message */}
-            {result && (
-                <div style={{
-                    marginTop: 18,
-                    padding: '12px 20px',
-                    borderRadius: 8,
-                    background: result.available ? 'rgba(80,193,237,0.15)' : 'rgba(255,80,80,0.1)',
-                    border: `1px solid ${result.available ? '#50c1ed' : '#ff5050'}`,
-                    color: result.available ? '#0a7a9e' : '#cc2222',
-                    fontSize: 16,
-                    fontWeight: 500,
-                    textAlign: 'center',
-                }}>
-                    {result.available
-                        ? `yes "${result.domain}" is available!`
-                        : `no "${result.domain}" is not available.`}
+            {/* Results */}
+            {searched && !loading && results.length > 0 && (
+                <div id="results" style={{ marginTop: 20 }}>
+                    {results.map((item, i) => (
+                        <div key={i} style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '14px 20px',
+                            marginBottom: 10,
+                            borderRadius: 6,
+                            background: item.available
+                                ? 'rgba(80,193,237,0.12)'
+                                : 'rgba(255,80,80,0.08)',
+                            border: `1px solid ${item.available ? '#50c1ed' : '#ff6b6b'}`,
+                            flexWrap: 'wrap',
+                            gap: 10,
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                                <span style={{
+                                    fontSize: 20,
+                                    fontWeight: 700,
+                                    color: item.available ? '#50c1ed' : '#ff6b6b',
+                                }}>
+                                    {item.available ? '✓' : '✗'}
+                                </span>
+                                <span style={{
+                                    fontSize: 17,
+                                    fontWeight: 500,
+                                    color: '#fff',
+                                }}>
+                                    {item.domain}
+                                </span>
+                                <span style={{
+                                    fontSize: 14,
+                                    color: item.available ? '#a0e8f8' : '#ffaaaa',
+                                }}>
+                                    {item.available ? 'Available' : 'Not available'}
+                                </span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                                {item.price && (
+                                    <span style={{ color: '#fff', fontWeight: 500, fontSize: 16 }}>
+                                        {item.price}
+                                    </span>
+                                )}
+                                {item.available && item.addToCartUrl && (
+                                    <a
+                                        href={item.addToCartUrl}
+                                        className="btn"
+                                        style={{
+                                            padding: '8px 20px',
+                                            fontSize: 14,
+                                            borderRadius: 50,
+                                            background: '#50c1ed',
+                                            color: '#fff',
+                                            border: 'none',
+                                            textDecoration: 'none',
+                                            display: 'inline-block',
+                                        }}
+                                    >
+                                        Add to Cart
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

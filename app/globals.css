@@ -1193,3 +1193,104 @@ nav#main-nav .container {
         margin-left: 10px !important;
     }
 }
+
+/* =============================================
+   DOMAIN SEARCH — #wdc-style input group
+   Matches screenshot: white input + blue button
+   ============================================= */
+
+#wdc-style .input-group.large {
+    display: flex !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 20px auto 10px !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15) !important;
+}
+
+#wdc-style .input-group.large #Search {
+    flex: 1 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 16px 22px !important;
+    font-size: 17px !important;
+    color: #3a3a3a !important;
+    background: #fff !important;
+    outline: none !important;
+    box-shadow: none !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+}
+
+#wdc-style .input-group.large #Search::placeholder {
+    color: #aaa !important;
+}
+
+#wdc-style .input-group.large .input-group-btn {
+    display: flex !important;
+    align-items: stretch !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    height: auto !important;
+}
+
+#wdc-style .input-group.large #Submit {
+    background: #50c1ed !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 16px 32px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    min-width: 160px !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    transition: background 0.3s ease !important;
+}
+
+#wdc-style .input-group.large #Submit:hover {
+    background: #3aa8d4 !important;
+}
+
+#wdc-style .input-group.large #Submit:disabled {
+    opacity: 0.75 !important;
+    cursor: not-allowed !important;
+}
+
+/* Loading dots */
+@keyframes wdc-jump {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-10px); opacity: 1; }
+}
+
+.wdc-dot-1 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0s; }
+.wdc-dot-2 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.18s; }
+.wdc-dot-3 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.36s; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    #wdc-style .input-group.large {
+        flex-direction: column !important;
+        border-radius: 8px !important;
+    }
+
+    #wdc-style .input-group.large #Search {
+        border-radius: 8px 8px 0 0 !important;
+        padding: 14px 18px !important;
+        font-size: 15px !important;
+    }
+
+    #wdc-style .input-group.large #Submit {
+        border-radius: 0 0 8px 8px !important;
+        padding: 14px 18px !important;
+        min-width: unset !important;
+        width: 100% !important;
+    }
+}

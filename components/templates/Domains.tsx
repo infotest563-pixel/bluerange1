@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { getMedia, renderShortcode } from '../../lib/wp';
+import { getMedia } from '../../lib/wp';
 import DomainsContactForm from '../DomainsContactForm';
+import DomainSearch from '../DomainSearch';
 
 export default async function Domains({ page }: { page: any }) {
     const acf = page.acf;
-    const title = page.title.rendered;
 
     const resolveImage = async (field: any) => {
         if (!field) return '';
@@ -19,11 +19,6 @@ export default async function Domains({ page }: { page: any }) {
 
     const bgImage = await resolveImage(acf.background_image);
 
-    // Shortcode
-    const shortcodeHtml = acf.shortcode
-        ? await renderShortcode(acf.shortcode)
-        : '';
-
     return (
         <div className="domains-template">
             {/* Domains Section */}
@@ -34,9 +29,7 @@ export default async function Domains({ page }: { page: any }) {
                         <div className="bl-box col-md-12 tx-wht tx-21">
                             <div className="wd-100 fade-in-top">
                                 {acf.title && <h2>{acf.title}</h2>}
-                                {shortcodeHtml && (
-                                    <div dangerouslySetInnerHTML={{ __html: shortcodeHtml }} suppressHydrationWarning />
-                                )}
+                                <DomainSearch buttonText="Search Domain" />
                                 {acf.extra_content && (
                                     <div className="extra-content" dangerouslySetInnerHTML={{ __html: acf.extra_content }} />
                                 )}
