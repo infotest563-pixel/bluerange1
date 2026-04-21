@@ -129,8 +129,8 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                     textAlign: 'center',
                 }}>
                     {result.available
-                        ? `✓ "${result.domain}" is available!`
-                        : `✗ "${result.domain}" is not available.`}
+                        ? `yes "${result.domain}" is available!`
+                        : `no "${result.domain}" is not available.`}
                 </div>
             )}
         </div>
