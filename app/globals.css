@@ -1342,7 +1342,7 @@ nav#main-nav .container {
     align-items: center !important;
     justify-content: center !important;
     flex: 1 !important;
-    max-width: 50% !important;
+    /* max-width: 50% !important; */
 }
 
 .op-prtnrsldr .op-slide-img img {
