@@ -45,7 +45,7 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                 <input
                     type="text"
                     className="form-control"
-                    placeholder="yourdomain.com"
+                    // placeholder="yourdomain.com"
                     value={domain}
                     onChange={(e) => setDomain(e.target.value)}
                     disabled={loading}
@@ -56,7 +56,7 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
                         fontSize: '16px',
                         outline: 'none',
                         background: 'transparent',
-                        borderRadius: '50px 0 0 50px',
+                        borderRadius: '10px 0 0 10px',
                         color: '#3a3a3a',
                     }}
                 />
