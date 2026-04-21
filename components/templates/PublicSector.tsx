@@ -68,7 +68,7 @@ export default async function PublicSector({ page }: { page: any }) {
                     </div>
 
                     {publicFeatures.length > 0 && (
-                        <div className="row hm-frstx-inner3 pbs-frstx-inner3 top-round greybx-inner circle-hover animated">
+                        <div className="row hm-frstx-inner3 pbs-frstx-inner3 top-round greybx-inner circle-hover">
                             {publicFeatures.map((row: any, i: number) => (
                                 <div key={i} className="bl-box col-sm-6 col-lg-4">
                                     <div className="wd-100">
@@ -120,7 +120,7 @@ export default async function PublicSector({ page }: { page: any }) {
             <section className="hm-sec-servicsuport sec-padd ed_section">
                 <div className="container">
                     {customerFeatures.length > 0 && (
-                        <div className="row hm-servicsuport-inner top-round tx-center bounce-hover animated">
+                        <div className="row hm-servicsuport-inner top-round tx-center bounce-hover">
                             {customerFeatures.map((row: any, i: number) => (
                                 <div key={i} className="bl-box col-sm-6 col-lg-4">
                                     <div className="wd-100">
