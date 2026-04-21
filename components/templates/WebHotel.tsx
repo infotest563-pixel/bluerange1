@@ -110,9 +110,9 @@ export default function WebHotel({ page }: { page: any }) {
             <section className="hm-sec-takeyour web-hotel-takeyour sec-padd ed_section bl-overlay"
                 style={{ backgroundImage: `url('${takeYourBg}')` }}>
                 <div className="container">
-                    <div className="row hm-takeyour-inner text-center animated">
+                    <div className="row hm-takeyour-inner text-center">
                         <div className="bl-box col-md-12 tx-wht tx-21">
-                            <div className="wd-100">
+                            <div className="wd-100 fade-in-top">
                                 <h2>{acf.take_your_title}</h2>
                                 {acf.take_your_subtitle && <h4>{acf.take_your_subtitle}</h4>}
                                 {acf.take_your_desc && <p>{acf.take_your_desc}</p>}

@@ -92,7 +92,7 @@ export default async function SoftwareHostingAsAService({ page }: { page: any })
             {/* Get a Quote */}
             <section className="hm-sec-getaquote ed_section mb-gap0">
                 <div className="container-fluid">
-                    <div className="row hm-getaquote-inner animated">
+                    <div className="row hm-getaquote-inner">
                         <div className="bl-box col-sm-12 col-lg-6">
                             {getQuoteImg && (
                                 <div className="wd-100">

@@ -48,9 +48,9 @@ export default async function SecurityAwarenessTraining({ page }: { page: any })
             {/* Banner */}
             <section className="sat-sec-srcbanner sem-sec-baner ed_section sec-padd bl-overlay" style={{ backgroundImage: "url('')" }}>
                 <div className="container">
-                    <div className="row sat-sercurity-inner sem-baner-inner tx-wht mx-975 animated">
+                    <div className="row sat-sercurity-inner sem-baner-inner tx-wht mx-975">
                         <div className="bl-box col-sm-12 col-lg-12">
-                            <div className="wd-100 text-center">
+                            <div className="wd-100 text-center fade-in-top">
                                 <h1 dangerouslySetInnerHTML={{ __html: title }} />
                                 {acf.banner_content && <div dangerouslySetInnerHTML={{ __html: acf.banner_content }} />}
                             </div>
@@ -228,9 +228,9 @@ export default async function SecurityAwarenessTraining({ page }: { page: any })
             {/* Get in Touch */}
             <section className="all-sec-lastform sec-padd">
                 <div className="container">
-                    <div className="row all-lastform-inner tx-wht animated">
+                    <div className="row all-lastform-inner tx-wht">
                         <div className="bl-box col-md-12 all-lstform cu-formbx">
-                            <div className="wd-100">
+                            <div className="wd-100 fade-in-top">
                                 <h2 className="mb-3">get in touch</h2>
                                 <DomainsContactForm />
                             </div>

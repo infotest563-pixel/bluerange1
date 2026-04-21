@@ -86,9 +86,9 @@ export default async function Backup({ page }: { page: any }) {
             <section className="hm-sec-sustainable bkp-sec-sustainable sec-padd ed_section bl-overlay"
                 style={{ backgroundImage: `url('${sustainableBg}')` }}>
                 <div className="container">
-                    <div className="row hm-Sustinble-inner1 animated">
+                    <div className="row hm-Sustinble-inner1">
                         <div className="bl-box col-sm-12 col-md-12 col-lg-8 tx-wht">
-                            <div className="wd-100 tx-20">
+                            <div className="wd-100 tx-20 fade-in-left">
                                 {acf.sustainable_section_heading && <h2>{acf.sustainable_section_heading}</h2>}
                                 {acf.sustainable_section_paragraph && <p>{acf.sustainable_section_paragraph}</p>}
                                 {acf.sustainable_section_author && <h5>{acf.sustainable_section_author}</h5>}
@@ -96,7 +96,7 @@ export default async function Backup({ page }: { page: any }) {
                         </div>
                     </div>
 
-                    <div className="row hm-Sustinble-inner top-round whtbx-inner tx-center animated">
+                    <div className="row hm-Sustinble-inner top-round whtbx-inner tx-center">
                         {sustainableBoxes.map((box: any, i: number) => (
                             <div key={i} className="bl-box col-sm-6 col-lg-4">
                                 <div className="wd-100">
