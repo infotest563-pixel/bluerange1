@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { getMedia } from '../../lib/wp';
+import DomainsContactForm from '../DomainsContactForm';
 
 export default async function SecurityAwarenessTraining({ page }: { page: any }) {
     const acf = page.acf;
@@ -218,6 +219,20 @@ export default async function SecurityAwarenessTraining({ page }: { page: any })
                                         )}
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Get in Touch */}
+            <section className="all-sec-lastform sec-padd">
+                <div className="container">
+                    <div className="row all-lastform-inner tx-wht animated">
+                        <div className="bl-box col-md-12 all-lstform cu-formbx">
+                            <div className="wd-100">
+                                <h2 className="mb-3">get in touch</h2>
+                                <DomainsContactForm />
                             </div>
                         </div>
                     </div>

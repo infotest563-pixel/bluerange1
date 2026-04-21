@@ -99,20 +99,27 @@ jQuery(document).ready(function () {
       prevEl: ".swiper-button-prev",
     },
     breakpoints: {
-      0: {
-        slidesPerView: 1,
-        spaceBetween: 30,
-      },
-      660: {
-        slidesPerView: 2,
-        spaceBetween: 30,
-      },
-      1024: {
-        slidesPerView: 5,
-        spaceBetween: 30,
-      },
+      0: { slidesPerView: 1, spaceBetween: 30 },
+      660: { slidesPerView: 2, spaceBetween: 30 },
+      1024: { slidesPerView: 5, spaceBetween: 30 },
     },
   });
+
+  //-------- |-- Fantastic customers logo slider (homepage) --| -------------//
+  if (jQuery(".hm-firstbnr .hm_frtbnr-inner .swiper-slide").length) {
+    new Swiper(".hm-firstbnr", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      speed: 1500,
+      autoplay: { delay: 1500, disableOnInteraction: false },
+      breakpoints: {
+        0: { slidesPerView: 1, spaceBetween: 30 },
+        660: { slidesPerView: 2, spaceBetween: 30 },
+        1024: { slidesPerView: 5, spaceBetween: 30 },
+      },
+    });
+  }
 
   //-------- |-- Home page slider ( We are partnered) --| -------------//
   let SwiperTop = new Swiper(".hm-partswiper", {

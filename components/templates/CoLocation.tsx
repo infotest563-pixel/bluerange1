@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { getMedia, renderShortcode } from '../../lib/wp';
+import { getMedia } from '../../lib/wp';
+import CoLocationContactForm from '../../components/CoLocationContactForm';
 
 const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
 
@@ -18,15 +18,10 @@ export default async function CoLocation({ page }: { page: any }) {
         return '';
     };
 
-    // Pre-resolve repeater images
     const features = await Promise.all((acf.you_can_trust_features || []).map(async (row: any) => ({
         ...row,
         imgUrl: await resolveImage(row.trust_features_icons)
     })));
-
-    // Shortcode
-    // En: [contact-form-7 id="cbbde7a" title="Colocation- Request will be answered"]
-    const shortcodeHtml = await renderShortcode('[contact-form-7 id="cbbde7a" title="Colocation- Request will be answered"]');
 
     return (
         <div className="co-location-template">
@@ -34,12 +29,16 @@ export default async function CoLocation({ page }: { page: any }) {
             <section className="cl-sec-srcbanner sem-sec-baner ed_section sec-padd bl-overlay"
                 style={{ backgroundImage: `url('${WP_HOST}/wp-content/uploads/2023/10/co-loction.jpg')` }}>
                 <div className="container">
-                    <div className="row cl-contbaner-inner sem-baner-inner tx-wht">
+                    <div className="row cl-contbaner-inner sem-baner-inner">
                         <div className="bl-box col-sm-12 col-lg-12">
-                            <div className="wd-100 text-center">
-                                <h1 dangerouslySetInnerHTML={{ __html: title }} />
-                                {acf.banner_content && <div dangerouslySetInnerHTML={{ __html: acf.banner_content }} />}
-                                {acf.banner_subcontent && <div dangerouslySetInnerHTML={{ __html: acf.banner_subcontent }} />}
+                            <div className="wd-100 text-center coloc-banner-text">
+                                <h1   className="white-text" dangerouslySetInnerHTML={{ __html: title }} />
+                                {acf.banner_content && (
+                                    <div dangerouslySetInnerHTML={{ __html: acf.banner_content }} />
+                                )}
+                                {acf.banner_subcontent && (
+                                    <div dangerouslySetInnerHTML={{ __html: acf.banner_subcontent }} />
+                                )}
                             </div>
                         </div>
                     </div>
@@ -54,9 +53,13 @@ export default async function CoLocation({ page }: { page: any }) {
                             <div className="wd-100 mx-800">
                                 <h2>
                                     <span dangerouslySetInnerHTML={{ __html: title || '' }} />
-                                    {acf.you_can_trust_title && <span dangerouslySetInnerHTML={{ __html: acf.you_can_trust_title }} />}
+                                    {acf.you_can_trust_title && (
+                                        <span dangerouslySetInnerHTML={{ __html: acf.you_can_trust_title }} />
+                                    )}
                                 </h2>
-                                {acf.you_can_trust_subtitle && <div dangerouslySetInnerHTML={{ __html: acf.you_can_trust_subtitle }} />}
+                                {acf.you_can_trust_subtitle && (
+                                    <div dangerouslySetInnerHTML={{ __html: acf.you_can_trust_subtitle }} />
+                                )}
                             </div>
                         </div>
                     </div>
@@ -70,7 +73,9 @@ export default async function CoLocation({ page }: { page: any }) {
                                         </div>
                                     )}
                                     {row.trust_features_title && <h4>{row.trust_features_title}</h4>}
-                                    {row.trust_features_content && <div dangerouslySetInnerHTML={{ __html: row.trust_features_content }} />}
+                                    {row.trust_features_content && (
+                                        <div dangerouslySetInnerHTML={{ __html: row.trust_features_content }} />
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -87,7 +92,7 @@ export default async function CoLocation({ page }: { page: any }) {
                                 <h2>Request will be answered within 24 hours</h2>
                             </div>
                             <div className="wd-100">
-                                <div dangerouslySetInnerHTML={{ __html: shortcodeHtml }} suppressHydrationWarning />
+                                <CoLocationContactForm />
                             </div>
                         </div>
                     </div>

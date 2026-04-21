@@ -79,14 +79,14 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
         const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
         if (!url) return '#';
         if (url.startsWith(WP_HOST)) {
-            const path = url.replace(WP_HOST, '') || '/';
-            // If path already has language prefix, return as-is
+            let path = url.replace(WP_HOST, '') || '/';
+            // Strip ?page_id= query params
+            if (path.includes('?page_id=')) return `/${lang}`;
             if (path.startsWith('/en/') || path.startsWith('/sv/')) return path;
-            // Add language prefix
             return `/${lang}${path}`;
         }
-        // Relative URL without language prefix — add it
         if (url.startsWith('/') && !url.startsWith('/en/') && !url.startsWith('/sv/')) {
+            if (url.includes('?page_id=')) return `/${lang}`;
             return `/${lang}${url}`;
         }
         return url;
@@ -296,7 +296,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                                         <div key={i} className="bl-box col-sm-6 col-lg-6">
                                             <div className="wd-100 tx-18">
                                                 {row.address_title && <h5>{row.address_title}</h5>}
-                                                {row.detail_address && <div>{row.detail_address}</div>}
+                                                {row.detail_address && <div dangerouslySetInnerHTML={{ __html: row.detail_address }} />}
                                                 <ul>
                                                     <li>
                                                         {row.mail_link && (
@@ -324,7 +324,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                         <div className="bl-box col-md-12 col-lg-6 ">
                             <div className="wd-100 text-center text-lg-right" id="map"></div>
                             <div className="wd-100 text-center mt-4">
-                                <img src="/wp-content/uploads/2023/11/headquarter.png" className="mx-100" />
+                                <img src="https://dev-bluerange.pantheonsite.io/wp-content/uploads/2023/11/headquarter.png" className="mx-100" alt="" />
                             </div>
                         </div>
                     </div>

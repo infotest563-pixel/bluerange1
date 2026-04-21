@@ -151,6 +151,29 @@ export default function Microsoft365({ page }: { page: any }) {
                     </div>
                 </div>
             </section>
+
+            {/* Get in Touch */}
+            <Microsoft365ContactSection />
         </div>
+    );
+}
+
+// Server component for the contact form section
+import ContactForm from '../ContactForm';
+
+function Microsoft365ContactSection() {
+    return (
+        <section className="all-sec-lastform-vs sec-padd">
+            <div className="container">
+                <div className="row">
+                    <div className="bl-box col-md-12">
+                        <div className="wd-100 vs-getintouch-box">
+                            <h2 className="mb-3 text-center">Get in touch</h2>
+                            <ContactForm />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }

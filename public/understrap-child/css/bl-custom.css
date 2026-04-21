@@ -33,8 +33,38 @@ body a:focus {
 
 @font-face {
   font-family: "Consid Sans";
-  src: url("https://bluerange.com/wp-content/uploads/fonts/montserrat.regular.otf") format("opentype");
-  /*     font-weight: 500; */
+  src: url("/understrap-child/fonts/TestUntitledSans-Regular.woff2") format("woff2"),
+       url("/understrap-child/fonts/TestUntitledSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Consid Sans";
+  src: url("/understrap-child/fonts/TestUntitledSans-Medium.woff2") format("woff2"),
+       url("/understrap-child/fonts/TestUntitledSans-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Consid Sans";
+  src: url("/understrap-child/fonts/TestUntitledSans-Bold.woff2") format("woff2"),
+       url("/understrap-child/fonts/TestUntitledSans-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Consid Sans";
+  src: url("/understrap-child/fonts/TestUntitledSans-Light.woff2") format("woff2"),
+       url("/understrap-child/fonts/TestUntitledSans-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* @font-face {
@@ -2415,7 +2445,6 @@ footer .container:first-child {
 }
 
 .all-lstform .wd-100 {
-  display: inline-block;
 }
 
 .all-lstform .wd-100 .wpcf7 {

@@ -35,7 +35,11 @@ export default async function Header({ lang = 'sv' }: { lang?: string }) {
         // External links — return as-is
         if (url.startsWith('http') && !url.startsWith(WP_HOST)) return url;
         // Strip WP host
-        const path = url.startsWith(WP_HOST) ? (url.replace(WP_HOST, '') || '/') : url;
+        let path = url.startsWith(WP_HOST) ? (url.replace(WP_HOST, '') || '/') : url;
+        // Strip ?page_id= query params — these are WordPress homepage aliases, map to language root
+        if (path.includes('?page_id=')) {
+            path = path.startsWith('/en') ? '/en' : '/sv';
+        }
         // Already has language prefix
         if (path.startsWith('/en/') || path.startsWith('/sv/') || path === '/en' || path === '/sv') return path;
         // Hash or mailto or tel — return as-is
@@ -156,7 +160,7 @@ export default async function Header({ lang = 'sv' }: { lang?: string }) {
                                     );
                                 })}
                             </ul>
-                        </div>
+                            </div>
 
                         {/* Language switcher */}
                         <LanguageSwitcher />

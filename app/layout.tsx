@@ -15,6 +15,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang={lang}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/understrap/css/theme.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.css" />
         <link rel="stylesheet" href="/understrap-child/css/animation.css" />
@@ -61,6 +64,108 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Script
           src="/contact-form-handler.js"
           strategy="afterInteractive"
+        />
+
+        {/* Re-initialize Swiper on Next.js client-side navigation */}
+        <Script
+          id="swiper-reinit"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              function initSwipers() {
+                if (typeof Swiper === 'undefined') return;
+
+                // Fantastic customers / logo sliders
+                document.querySelectorAll('.hm-firstbnr').forEach(function(el) {
+                  if (el.swiper) el.swiper.destroy(true, true);
+                  new Swiper(el, {
+                    slidesPerView: 1, spaceBetween: 30, loop: true, speed: 1500,
+                    autoplay: { delay: 1500, disableOnInteraction: false },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2}, 1024:{slidesPerView:5} }
+                  });
+                });
+
+                // Partners slider
+                document.querySelectorAll('.hm-partswiper').forEach(function(el) {
+                  if (el.swiper) el.swiper.destroy(true, true);
+                  new Swiper(el, {
+                    slidesPerView: 6, spaceBetween: 30, loop: true, speed: 2500,
+                    autoplay: { delay: 2000, disableOnInteraction: false },
+                    breakpoints: { 0:{slidesPerView:1}, 640:{slidesPerView:3}, 1024:{slidesPerView:5}, 1280:{slidesPerView:6} }
+                  });
+                });
+
+                // Career image slider
+                document.querySelectorAll('.cr-imgcrr').forEach(function(el) {
+                  if (el.swiper) el.swiper.destroy(true, true);
+                  new Swiper(el, {
+                    slidesPerView: 2, spaceBetween: 30, loop: true, speed: 1500,
+                    autoplay: { delay: 1000, disableOnInteraction: false },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2} }
+                  });
+                });
+
+                // Security awareness training logos
+                document.querySelectorAll('.sat-securlog').forEach(function(el) {
+                  if (el.swiper) el.swiper.destroy(true, true);
+                  new Swiper(el, {
+                    slidesPerView: 4, spaceBetween: 30, loop: true, speed: 1500,
+                    autoplay: { delay: 1000, disableOnInteraction: false },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2}, 1024:{slidesPerView:4} }
+                  });
+                });
+
+                // Our partners slider
+                document.querySelectorAll('.op-prtnrsldr').forEach(function(el) {
+                  if (el.swiper) el.swiper.destroy(true, true);
+                  new Swiper(el, {
+                    slidesPerView: 4, spaceBetween: 30, loop: true,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:3}, 1024:{slidesPerView:4} }
+                  });
+                });
+
+                // Service testimonial
+                document.querySelectorAll('.sr-testimoail').forEach(function(el) {
+                  if (el.swiper) el.swiper.destroy(true, true);
+                  new Swiper(el, {
+                    slidesPerView: 3, spaceBetween: 30, loop: true,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    breakpoints: { 0:{slidesPerView:1}, 660:{slidesPerView:2}, 1024:{slidesPerView:3} }
+                  });
+                });
+              }
+
+              // Init country map
+              function initMap() {
+                var mapEl = document.getElementById('map');
+                if (!mapEl || mapEl.children.length > 0) return;
+                if (typeof simplemaps_countrymap !== 'undefined') {
+                  try { simplemaps_countrymap.load(); } catch(e) {}
+                }
+              }
+
+              // Run on initial load
+              window.addEventListener('load', function() {
+                setTimeout(initSwipers, 300);
+                setTimeout(initMap, 500);
+              });
+
+              // Re-run on Next.js route changes
+              if (typeof window !== 'undefined') {
+                var _pushState = history.pushState;
+                history.pushState = function() {
+                  _pushState.apply(history, arguments);
+                  setTimeout(initSwipers, 500);
+                  setTimeout(initMap, 700);
+                };
+              }
+            `
+          }}
         />
       </body>
     </html>

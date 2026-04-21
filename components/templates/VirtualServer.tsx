@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getMedia } from '../../lib/wp';
+import ContactForm from '../ContactForm';
 
 export default async function VirtualServer({ page }: { page: any }) {
     const acf = page.acf;
@@ -126,6 +127,20 @@ export default async function VirtualServer({ page }: { page: any }) {
                                         {acf.contact_support.title}
                                     </Link>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Get in Touch */}
+            <section className="all-sec-lastform-vs sec-padd">
+                <div className="container">
+                    <div className="row">
+                        <div className="bl-box col-md-12">
+                            <div className="wd-100 vs-getintouch-box">
+                                <h2 className="mb-3 text-center">Get in touch</h2>
+                                <ContactForm />
                             </div>
                         </div>
                     </div>

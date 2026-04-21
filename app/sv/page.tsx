@@ -14,5 +14,16 @@ export default async function SwedishHome() {
     return <h1>ACF data missing on homepage</h1>;
   }
 
+  // If SV page has no address data, fall back to EN address data
+  if (!page.acf.address || page.acf.address.length === 0) {
+    const enSettings = await getSettings('en');
+    if (enSettings?.page_on_front) {
+      const enPage = await getPageById(enSettings.page_on_front, 'en');
+      if (enPage?.acf?.address) {
+        page.acf.address = enPage.acf.address;
+      }
+    }
+  }
+
   return <DesignedHomepage page={page} lang="sv" />;
 }

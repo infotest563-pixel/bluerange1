@@ -8,10 +8,14 @@ export default async function Footer({ lang = 'sv' }: { lang?: string }) {
     const options = settings?.options || {};
     const formHtml = settings?.footer_form_html || '';
 
+    const serviceSlug = lang === 'sv' ? 'our-services-se' : 'our-services';
+    const aboutSlug = lang === 'sv' ? 'about-se' : 'about';
+    const insightSlug = lang === 'sv' ? 'insight-se' : 'insight';
+
     const [menuServices, menuAbout, menuInsight] = await Promise.all([
-        getMenu('OUR SERVICES', lang).catch(() => null),
-        getMenu('ABOUT', lang).catch(() => null),
-        getMenu('INSIGHT', lang).catch(() => null)
+        getMenu(serviceSlug, lang).catch(() => null),
+        getMenu(aboutSlug, lang).catch(() => null),
+        getMenu(insightSlug, lang).catch(() => null)
     ]);
 
     const resolveUrl = (url: string) => {
@@ -19,7 +23,11 @@ export default async function Footer({ lang = 'sv' }: { lang?: string }) {
         // External links — return as-is
         if (url.startsWith('http') && !url.startsWith(WP_HOST)) return url;
         // Strip WP host
-        const path = url.startsWith(WP_HOST) ? (url.replace(WP_HOST, '') || '/') : url;
+        let path = url.startsWith(WP_HOST) ? (url.replace(WP_HOST, '') || '/') : url;
+        // Strip ?page_id= query params
+        if (path.includes('?page_id=')) {
+            path = path.startsWith('/en') ? '/en' : '/sv';
+        }
         // Already has language prefix
         if (path.startsWith('/en/') || path.startsWith('/sv/') || path === '/en' || path === '/sv') return path;
         // Hash or mailto or tel — return as-is
@@ -62,7 +70,7 @@ export default async function Footer({ lang = 'sv' }: { lang?: string }) {
                         {/* Services Menu */}
                         <div className="bl-box col-sm-4 col-md-3 col-lg-3 ftr-menu tx-wht">
                             <div className="wd-100 foot-menu">
-                                <h3>{settings?.options?.our_services_title}</h3>
+                                <h5 className="ft-title">{settings?.options?.our_services_title}</h5>
                                 <ul>
                                     {Array.isArray(menuServices) && menuServices.map((item: any) => (
                                         <li key={item.id}>
@@ -83,7 +91,7 @@ export default async function Footer({ lang = 'sv' }: { lang?: string }) {
                         </div>
                         <div className="col-sm-6 col-lg-3 ftr-menu tx-wht">
                             <div className="wd-100 foot-menu">
-                                <h3>{settings?.options?.about_title}</h3>
+                                <h5 className="ft-title">{settings?.options?.about_title}</h5>
                                 <ul>
                                     {Array.isArray(menuAbout) && menuAbout.map((item: any) => (
                                         <li key={item.id}>
@@ -104,7 +112,7 @@ export default async function Footer({ lang = 'sv' }: { lang?: string }) {
                         </div>
                         <div className="col-sm-6 col-lg-3 ftr-menu tx-wht">
                             <div className="wd-100 foot-menu">
-                                <h3>{settings?.options?.insight_title}</h3>
+                                <h5 className="ft-title">{settings?.options?.insight_title}</h5>
                                 <ul>
                                     {Array.isArray(menuInsight) && menuInsight.map((item: any) => (
                                         <li key={item.id}>

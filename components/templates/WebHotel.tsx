@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { renderShortcode } from '../../lib/wp';
 
 export default function WebHotel({ page }: { page: any }) {
     const acf = page.acf;
@@ -106,7 +105,8 @@ export default function WebHotel({ page }: { page: any }) {
                 </div>
             </section>
 
-            {/* Take your first step */}
+            {/* Take your first step — only show if content exists */}
+            {(acf.take_your_title || acf.take_your_bg) && (
             <section className="hm-sec-takeyour web-hotel-takeyour sec-padd ed_section bl-overlay"
                 style={{ backgroundImage: `url('${takeYourBg}')` }}>
                 <div className="container">
@@ -128,6 +128,7 @@ export default function WebHotel({ page }: { page: any }) {
                     </div>
                 </div>
             </section>
+            )}
 
             {/* Easy Use */}
             <section className="web-sec-easeuse sec-padd ed_section">
@@ -224,6 +225,9 @@ export default function WebHotel({ page }: { page: any }) {
                 </div>
             </section>
 
+            {/* Get in Touch */}
+            <WebHotelContactSection />
+
             {/* Popup Modal */}
             {modalOpen && (
                 <div id="popupModal" className="popup-overlay" style={{ display: 'flex' }}>
@@ -242,5 +246,25 @@ export default function WebHotel({ page }: { page: any }) {
                 </div>
             )}
         </div>
+    );
+}
+
+// Server component for contact form
+import ContactForm from '../ContactForm';
+
+function WebHotelContactSection() {
+    return (
+        <section className="all-sec-lastform-vs sec-padd">
+            <div className="container">
+                <div className="row">
+                    <div className="bl-box col-md-12">
+                        <div className="wd-100 vs-getintouch-box">
+                            <h2 className="mb-3 text-center">Get in touch</h2>
+                            <ContactForm />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
