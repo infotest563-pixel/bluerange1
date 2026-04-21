@@ -21,6 +21,7 @@ import ContactUs from '../templates/ContactUs';
 import News from '../templates/News';
 import Products from '../templates/Products';
 import Services from '../templates/Services';
+import ScreenConnect from '../templates/ScreenConnect';
 
 
 export default function WordPressPageRenderer({ page }: { page: any }) {
@@ -100,6 +101,8 @@ export default function WordPressPageRenderer({ page }: { page: any }) {
         case 'services':
         case 'tjanster':
             return <Services page={page} />;
+        case 'screenconnect':
+            return <ScreenConnect page={page} />;
 
         // TODO: Implement other pages
         // case 'backup': return <Backup page={page} />;
