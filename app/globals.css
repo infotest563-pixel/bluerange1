@@ -1461,3 +1461,56 @@ nav#main-nav .container {
         max-height: 60px !important;
     }
 }
+
+/* =============================================
+   SWIPER PAGINATION DOTS — center fix
+   ============================================= */
+
+.swiper-pagination {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    display: block !important;
+    margin-top: 20px !important;
+    padding: 0 !important;
+}
+
+.swiper-pagination-horizontal {
+    text-align: center !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+.swiper-pagination-bullet {
+    display: inline-block !important;
+    margin: 0 4px !important;
+    vertical-align: middle !important;
+}
+
+/* Swiper with bottom padding for dots */
+.swiper.sw-botom {
+    padding-bottom: 45px !important;
+}
+
+.swiper.sw-botom .swiper-pagination {
+    position: absolute !important;
+    bottom: 5px !important;
+    margin-top: 0 !important;
+}
+
+/* Responsive — ensure dots stay centered on all sizes */
+@media (max-width: 768px) {
+    .swiper-pagination {
+        margin-top: 15px !important;
+    }
+
+    .swiper-pagination-bullet {
+        width: 8px !important;
+        height: 8px !important;
+        margin: 0 3px !important;
+    }
+}
