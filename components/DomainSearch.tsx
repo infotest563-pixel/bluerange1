@@ -71,7 +71,7 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
     };
 
     return (
-        <div id="wdc-style" style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div id="wdc-style" style={{ maxWidth: 900, margin: '0 auto', width: '100%' }}>
             <form onSubmit={handleSearch}>
                 <div className="input-group large" style={{ maxWidth: 900 }}>
                     <input

@@ -1291,21 +1291,43 @@ nav#main-nav .container {
 /* Mobile */
 @media (max-width: 768px) {
     #wdc-style .input-group.large {
-        flex-direction: column !important;
-        border-radius: 8px !important;
+        flex-direction: row !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
     }
 
     #wdc-style .input-group.large #Search {
-        border-radius: 8px 8px 0 0 !important;
-        padding: 14px 18px !important;
+        flex: 1 !important;
+        border-radius: 0 !important;
+        padding: 14px 14px !important;
         font-size: 15px !important;
+        min-width: 0 !important;
     }
 
     #wdc-style .input-group.large #Submit {
-        border-radius: 0 0 8px 8px !important;
-        padding: 14px 18px !important;
+        border-radius: 0 !important;
+        padding: 14px 16px !important;
+        min-width: 110px !important;
+        width: auto !important;
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #wdc-style .input-group.large {
+        flex-direction: column !important;
+    }
+
+    #wdc-style .input-group.large #Search {
+        border-radius: 6px 6px 0 0 !important;
+        padding: 13px 14px !important;
+    }
+
+    #wdc-style .input-group.large #Submit {
+        border-radius: 0 0 6px 6px !important;
         min-width: unset !important;
         width: 100% !important;
+        padding: 13px 14px !important;
     }
 }
 
