@@ -1217,37 +1217,50 @@ nav#main-nav .container {
     width: 100%;
     max-width: 900px;
     margin: 20px auto 10px;
-    padding: 0 15px;
+    padding: 0;
     box-sizing: border-box;
+}
+
+/* Reset Bootstrap interference */
+#wdc-style form {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 #wdc-style .input-group.large {
     display: flex !important;
+    flex-direction: row !important;
     align-items: stretch !important;
     width: 100% !important;
-    border-radius: 6px !important;
+    border-radius: 4px !important;
     overflow: hidden !important;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
+    flex-wrap: nowrap !important;
 }
 
-#wdc-style .input-group.large #Search {
+/* Input field — reset all Bootstrap styles */
+#wdc-style .input-group.large #Search.form-control {
     flex: 1 1 auto !important;
     min-width: 0 !important;
+    width: auto !important;
+    height: auto !important;
     border: none !important;
     border-radius: 0 !important;
     background: #fff !important;
     color: #3a3a3a !important;
     outline: none !important;
     box-shadow: none !important;
-    height: auto !important;
     line-height: 1.4 !important;
-    /* size set per breakpoint below */
+    font-family: inherit !important;
+    display: block !important;
+    /* padding & font-size per breakpoint */
 }
 
-#wdc-style .input-group.large #Search::placeholder {
+#wdc-style .input-group.large #Search.form-control::placeholder {
     color: #aaa !important;
 }
 
+/* Button wrapper */
 #wdc-style .input-group.large .input-group-btn {
     display: flex !important;
     align-items: stretch !important;
@@ -1255,10 +1268,15 @@ nav#main-nav .container {
     border: none !important;
     background: transparent !important;
     padding: 0 !important;
+    margin: 0 !important;
     height: auto !important;
+    vertical-align: unset !important;
+    font-size: unset !important;
 }
 
+/* Button */
 #wdc-style .input-group.large #Submit {
+    display: block !important;
     background: #50c1ed !important;
     color: #fff !important;
     border: none !important;
@@ -1270,7 +1288,9 @@ nav#main-nav .container {
     letter-spacing: 0 !important;
     text-transform: none !important;
     transition: background 0.3s ease !important;
-    /* size set per breakpoint below */
+    font-family: inherit !important;
+    font-weight: 500 !important;
+    /* padding, font-size, min-width per breakpoint */
 }
 
 #wdc-style .input-group.large #Submit:hover {
@@ -1284,54 +1304,56 @@ nav#main-nav .container {
 
 /* ── XL ≥1280px ── */
 @media (min-width: 1280px) {
-    #wdc-style .input-group.large #Search {
-        padding: 18px 24px !important;
-        font-size: 18px !important;
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 16px 22px !important;
+        font-size: 17px !important;
     }
     #wdc-style .input-group.large #Submit {
-        padding: 18px 40px !important;
-        font-size: 17px !important;
-        font-weight: 500 !important;
-        min-width: 180px !important;
+        padding: 16px 36px !important;
+        font-size: 16px !important;
+        min-width: 170px !important;
     }
 }
 
 /* ── LG 1024px–1279px ── */
 @media (min-width: 1024px) and (max-width: 1279px) {
-    #wdc-style .input-group.large #Search {
-        padding: 16px 22px !important;
-        font-size: 17px !important;
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 15px 20px !important;
+        font-size: 16px !important;
     }
     #wdc-style .input-group.large #Submit {
-        padding: 16px 32px !important;
-        font-size: 16px !important;
-        min-width: 160px !important;
+        padding: 15px 28px !important;
+        font-size: 15px !important;
+        min-width: 150px !important;
     }
 }
 
 /* ── MD 768px–1023px ── */
 @media (min-width: 768px) and (max-width: 1023px) {
-    #wdc-style .input-group.large #Search {
-        padding: 15px 18px !important;
-        font-size: 16px !important;
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 14px 16px !important;
+        font-size: 15px !important;
     }
     #wdc-style .input-group.large #Submit {
-        padding: 15px 24px !important;
-        font-size: 15px !important;
-        min-width: 140px !important;
+        padding: 14px 22px !important;
+        font-size: 14px !important;
+        min-width: 130px !important;
     }
 }
 
-/* ── SM 480px–767px ── */
+/* ── SM 480px–767px — side by side, compact ── */
 @media (min-width: 480px) and (max-width: 767px) {
-    #wdc-style .input-group.large #Search {
-        padding: 14px 14px !important;
-        font-size: 15px !important;
+    #wdc-style .input-group.large {
+        flex-direction: row !important;
+    }
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 12px 14px !important;
+        font-size: 14px !important;
     }
     #wdc-style .input-group.large #Submit {
-        padding: 14px 18px !important;
-        font-size: 14px !important;
-        min-width: 120px !important;
+        padding: 12px 16px !important;
+        font-size: 13px !important;
+        min-width: 110px !important;
     }
 }
 
@@ -1339,23 +1361,23 @@ nav#main-nav .container {
 @media (max-width: 479px) {
     #wdc-style .input-group.large {
         flex-direction: column !important;
-        border-radius: 8px !important;
+        border-radius: 6px !important;
     }
-    #wdc-style .input-group.large #Search {
-        padding: 14px 16px !important;
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 13px 16px !important;
         font-size: 15px !important;
-        border-radius: 8px 8px 0 0 !important;
+        border-radius: 6px 6px 0 0 !important;
         width: 100% !important;
     }
     #wdc-style .input-group.large .input-group-btn {
         width: 100% !important;
     }
     #wdc-style .input-group.large #Submit {
-        padding: 14px 16px !important;
+        padding: 13px 16px !important;
         font-size: 15px !important;
         min-width: unset !important;
         width: 100% !important;
-        border-radius: 0 0 8px 8px !important;
+        border-radius: 0 0 6px 6px !important;
     }
 }
 
