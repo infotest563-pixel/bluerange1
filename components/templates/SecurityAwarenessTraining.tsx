@@ -65,7 +65,7 @@ export default async function SecurityAwarenessTraining({ page }: { page: any })
                     <div className="row sat-securslider-inner1 mb-4">
                         <div className="bl-box col-12 col-lg-12">
                             <div className="wd-100">
-                                <div className="swiper sat-securlog">
+                                <div className="swiper sat-securlog sw-botom">
                                     <div className="swiper-wrapper">
                                         {galleryImages.map((img: any, i: number) => (
                                             <div key={i} className="swiper-slide wd-100">
