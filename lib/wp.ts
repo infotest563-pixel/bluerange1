@@ -2,6 +2,34 @@ import { transformPage, transformWpImages } from './wpImageTransform';
 
 const WP = 'https://dev-bluerange.pantheonsite.io';
 
+/**
+ * Rewrites a WordPress media URL to go through the Next.js /wp-content proxy.
+ * e.g. https://dev-bluerange.pantheonsite.io/wp-content/uploads/2023/09/image.png
+ *   →  /wp-content/uploads/2023/09/image.png
+ *
+ * This means images are served via your own Vercel domain instead of the WP server.
+ * The rewrite rule in next.config.ts proxies /wp-content/* → WP server.
+ */
+export function proxyImageUrl(url: string): string {
+    if (!url) return '';
+    if (url.startsWith(WP + '/wp-content/')) {
+        return url.replace(WP, '');
+    }
+    return url;
+}
+
+/**
+ * Rewrites all WordPress image URLs inside an HTML string.
+ * Use this when rendering dangerouslySetInnerHTML content from WordPress.
+ */
+export function proxyHtmlImages(html: string): string {
+    if (!html) return '';
+    return html.replace(
+        new RegExp(WP.replace(/\./g, '\\.') + '/wp-content/', 'g'),
+        '/wp-content/'
+    );
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type WpSettings = {
