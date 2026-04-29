@@ -5,6 +5,19 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
+  // Prevent 'fs', 'path' etc from being bundled into client-side code
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        os: false,
+      };
+    }
+    return config;
+  },
+
   // ✅ Allow Next.js <Image> to load images from WordPress
   images: {
     remotePatterns: [
