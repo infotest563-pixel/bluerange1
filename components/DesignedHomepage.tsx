@@ -1,23 +1,12 @@
 import Link from 'next/link';
-import { getMedia } from '../lib/wp';
+import { resolveImage } from '../lib/resolveImage';
+import { wpImgUrl } from '../lib/localImage';
 import ContactForm from './ContactForm';
 import DomainSearch from './DomainSearch';
 import { resolveUrl } from '../lib/resolveUrl';
 
 export default async function DesignedHomepage({ page, lang = 'en' }: { page: any; lang?: string }) {
     const acf = page.acf;
-
-    // Helper to resolve image URL from ID or Object
-    const resolveImage = async (field: any) => {
-        if (!field) return '';
-        if (typeof field === 'string') return field; // Already URL?
-        if (field.url) return field.url;
-        if (typeof field === 'number') {
-            const media = await getMedia(field).catch(() => null);
-            return media?.source_url || '';
-        }
-        return '';
-    };
 
     // Pre-fetch all necessary images
     // We map over all fields that might be IDs or Objects
@@ -68,11 +57,13 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
         }
     }));
 
-    // Render helper
+    // Render helper — always runs through wpImgUrl for local image support
     const getImg = (field: any) => {
         if (!field) return '';
-        if (field.url) return field.url;
+        if (field.url) return wpImgUrl(field.url);
+        if (field.source_url) return wpImgUrl(field.source_url);
         if (typeof field === 'number') return imgMap.get(String(field)) || '';
+        if (typeof field === 'string') return wpImgUrl(field);
         return '';
     };
 

@@ -2,26 +2,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { resolveUrl, getLang } from '../../lib/resolveUrl';
+import { wpImgUrl } from '../../lib/localImage';
 
 export default function WebHotel({ page }: { page: any }) {
     const acf = page.acf;
     const [modalOpen, setModalOpen] = useState(false);
 
-    // In a real scenario, we might want to fetch shortcode content server-side.
-    // However, since this is a client component, we pass pre-fetched shortcode or fetch it here.
-    // For simplicity, we'll assume the shortcode content is passed or we rendered it server-side wrapper.
-    // But since we are converting to pure client component for interaction, let's just use the raw shortcode string
-    // or better yet, if the shortcode is static (like the buy now popup), we can't easily run PHP.
-    // We will render the shortcode string inside a div and hope the contact form logic (if JS based) picks it up, 
-    // OR we fetch the rendered HTML.
-
-    // Actually, creating a server wrapper that passes data to client component is better.
-    // But for now, let's keep it simple. If shortcode rendering is needed, we'll use a prop.
-
     const resolveImage = (field: any) => {
         if (!field) return '';
-        if (typeof field === 'string') return field;
-        if (field.url) return field.url;
+        if (typeof field === 'string') return wpImgUrl(field);
+        if (field.url) return wpImgUrl(field.url);
+        if (field.source_url) return wpImgUrl(field.source_url);
         return '';
     };
 

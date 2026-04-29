@@ -235,3 +235,35 @@ export function replaceWpImagesInHtml(html: string | null | undefined): string {
 // Legacy aliases — keep backward compatibility with old code
 export const getLocalImagePath = wpImgUrl;
 export const resolveAcfImageUrl = wpAcfImg;
+
+/**
+ * resolveImageField — use this in ALL templates instead of inline resolveImage.
+ *
+ * Handles every ACF image field shape and always returns a local /images/ path
+ * when IMAGE_MODE=local, or the WP URL when IMAGE_MODE=wp.
+ *
+ * Replaces the repeated resolveImage() function in every template.
+ */
+export async function resolveImageField(
+    field: any,
+    fetchMedia: (id: number) => Promise<any>
+): Promise<string> {
+    if (!field) return '';
+
+    // Already a string URL
+    if (typeof field === 'string') return wpImgUrl(field);
+
+    // ACF image object { url, ... } or { source_url, ... }
+    if (typeof field === 'object') {
+        const url = field.url || field.source_url || field.guid;
+        if (url) return wpImgUrl(url);
+    }
+
+    // Numeric media ID — fetch from WP API
+    if (typeof field === 'number') {
+        const media = await fetchMedia(field).catch(() => null);
+        return wpImgUrl(media?.source_url || '');
+    }
+
+    return '';
+}

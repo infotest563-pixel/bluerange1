@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { getMedia } from '../../lib/wp';
+import { wpImgUrl } from '../../lib/localImage';
+import { getLang } from '../../lib/resolveUrl';
 
 // Client component for interactivity
 export default function Microsoft365({ page }: { page: any }) {
@@ -10,8 +11,9 @@ export default function Microsoft365({ page }: { page: any }) {
 
     const resolveImage = (field: any) => {
         if (!field) return '';
-        if (typeof field === 'string') return field;
-        if (field.url) return field.url;
+        if (typeof field === 'string') return wpImgUrl(field);
+        if (field.url) return wpImgUrl(field.url);
+        if (field.source_url) return wpImgUrl(field.source_url);
         return '';
     };
 

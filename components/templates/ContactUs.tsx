@@ -1,20 +1,10 @@
 import Link from 'next/link';
-import { getMedia, renderShortcode } from '../../lib/wp';
+import { renderShortcode } from '../../lib/wp';
+import { resolveImage } from '../../lib/resolveImage';
 
 export default async function ContactUs({ page }: { page: any }) {
     const acf = page.acf;
     const title = page.title.rendered;
-
-    const resolveImage = async (field: any) => {
-        if (!field) return '';
-        if (typeof field === 'string') return field;
-        if (field.url) return field.url;
-        if (typeof field === 'number') {
-            const media = await getMedia(field).catch(() => null);
-            return media?.source_url || '';
-        }
-        return '';
-    };
 
     const bannerBg = await resolveImage(acf.banner_backgroung_image);
 

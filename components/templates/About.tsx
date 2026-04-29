@@ -1,24 +1,10 @@
 import Link from 'next/link';
-import { getMedia } from '../../lib/wp';
+import { resolveImage } from '../../lib/resolveImage';
 import DomainsContactForm from '../DomainsContactForm';
-import { wpImgUrl, wpAcfImg } from '../../lib/localImage';
 
 export default async function About({ page }: { page: any }) {
     const acf = page.acf;
     const title = page.title.rendered;
-
-    const resolveImage = async (field: any) => {
-        if (!field) return '';
-        // Use wpAcfImg first — handles string/object shapes
-        const fromAcf = wpAcfImg(field);
-        if (fromAcf) return fromAcf;
-        // If it's a numeric media ID, fetch from WP API
-        if (typeof field === 'number') {
-            const media = await getMedia(field).catch(() => null);
-            return wpImgUrl(media?.source_url || '');
-        }
-        return '';
-    };
 
     const bannerBg = await resolveImage(acf.banner_background_image);
     const rightImg = await resolveImage(acf.right_image);
