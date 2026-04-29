@@ -10,6 +10,9 @@
  * IMAGE_MODE=wp     → returns original WP URL   (default, always fresh)
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/// <reference types="node" />
+
 // ─── Static JSON import — safe in client AND server ──────────────────────────
 // webpack/Next.js bundles this at build time — no 'fs' needed
 let _manifest: Record<string, { filename: string; source_url: string; local_path: string }> = {};
