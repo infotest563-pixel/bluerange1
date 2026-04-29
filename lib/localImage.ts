@@ -34,44 +34,25 @@ type Manifest = Record<string, ManifestEntry>;
  * pre-built at build time and passed down as props or used in Server Components.
  */
 function buildFilenameMap(): Record<string, string> {
-  // Only runs in Node.js (server / build time)
+  // Only runs in Node.js server environment — never in browser/edge
   if (typeof window !== 'undefined') return {};
 
   try {
-    // Dynamic require so this doesn't break client bundles
+    // Lazy-load the server-only module to avoid bundling fs in client code
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const fs   = require('fs')   as typeof import('fs');
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const path = require('path') as typeof import('path');
-
-    const manifestPath = path.join(process.cwd(), 'public', 'images', 'manifest.json');
-    if (!fs.existsSync(manifestPath)) return {};
-
-    const manifest: Manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-    const map: Record<string, string> = {};
-
-    for (const entry of Object.values(manifest)) {
-      if (entry.filename && entry.local_path) {
-        // Key by filename (lowercase) for case-insensitive lookup
-        map[entry.filename.toLowerCase()] = entry.local_path;
-        // Also key by source_url for direct URL lookup
-        map[entry.source_url] = entry.local_path;
-      }
-    }
-
-    return map;
+    const serverModule = require('./localImage.server');
+    return serverModule.getServerImageMap();
   } catch {
     return {};
   }
 }
 
 // ─── Mode switch ──────────────────────────────────────────────────────────────
-// Set IMAGE_MODE=local in .env.local to serve from /public/images/ (requires sync)
-// Set IMAGE_MODE=wp   in .env.local to serve directly from WordPress (always fresh)
-// Default is 'wp' — images always up to date, no sync needed
+// IMAGE_MODE=local → serve from /public/images/ (requires sync)
+// IMAGE_MODE=wp    → serve directly from WordPress (default, always fresh)
 const IMAGE_MODE = (
   typeof process !== 'undefined' &&
-  process.env?.IMAGE_MODE === 'local'
+  (process.env?.IMAGE_MODE === 'local' || process.env?.NEXT_PUBLIC_IMAGE_MODE === 'local')
 ) ? 'local' : 'wp';
 
 
