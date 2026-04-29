@@ -152,3 +152,13 @@ export function bustManifestCache(): void {
 // Legacy aliases
 export const getLocalImagePath = wpImgUrl;
 export const resolveAcfImageUrl = wpAcfImg;
+
+/**
+ * Returns true if the image has been synced locally to /public/images/.
+ * Useful for debugging or conditional rendering.
+ */
+export function isLocalImage(url: string | null | undefined): boolean {
+    if (!url) return false;
+    const resolved = wpImgUrl(url);
+    return resolved.startsWith('/images/');
+}
