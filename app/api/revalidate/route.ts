@@ -18,7 +18,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 const SECRET = process.env.REVALIDATE_SECRET || '';
 
@@ -58,6 +58,14 @@ export async function POST(req: NextRequest) {
         revalidatePath(p);
         revalidated.push(p);
       }
+
+      // Also revalidate by tags for better cache busting
+      revalidateTag(`page-slug-${slug}`);
+      revalidateTag(`post-slug-${slug}`);
+      revalidateTag(`page-${lang}`);
+      revalidateTag('page');
+      revalidateTag('post');
+      revalidated.push(`tag:page-slug-${slug}`, `tag:post-slug-${slug}`, `tag:page-${lang}`);
     }
 
     // ── Option B: Revalidate homepage ─────────────────────────────────────
@@ -65,13 +73,22 @@ export async function POST(req: NextRequest) {
       revalidatePath('/en');
       revalidatePath('/sv');
       revalidatePath('/');
-      revalidated.push('/en', '/sv', '/');
+      revalidateTag('settings');
+      revalidateTag('site');
+      revalidated.push('/en', '/sv', '/', 'tag:settings', 'tag:site');
     }
 
     // ── Option C: Revalidate everything (nuclear option) ─────────────────
     if (body.revalidate_all || (!body.slug && !body.type)) {
       revalidatePath('/', 'layout');
-      revalidated.push('/ (all pages via layout)');
+      revalidateTag('page');
+      revalidateTag('post');
+      revalidateTag('media');
+      revalidateTag('settings');
+      revalidateTag('site');
+      revalidateTag('menu');
+      revalidateTag('shortcode');
+      revalidated.push('/ (all pages via layout)', 'tag:all');
     }
 
     // ── Also trigger image sync if an image was updated ───────────────────
