@@ -144,8 +144,14 @@ export async function POST(req: NextRequest) {
     // ✅ Bust the in-memory manifest cache so next request uses new image
     bustManifestCache();
 
-    // ✅ Revalidate all pages so they pick up the new image immediately
+    // ✅ Revalidate all pages and media tags so they pick up the new image immediately
     revalidatePath('/', 'layout');
+    revalidateTag('media');
+    if (mediaId) {
+      revalidateTag(`media-${mediaId}`);
+    }
+    revalidateTag('page');
+    revalidateTag('post');
 
     return NextResponse.json({
       success: true,
