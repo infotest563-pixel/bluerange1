@@ -2,8 +2,8 @@ import { getPageBySlug, getPostBySlug, getSettings } from '../../../lib/wp';
 import { redirect, notFound } from 'next/navigation';
 import WordPressPageRenderer from '../../../components/pages/WordPressPageRenderer';
 
-// ✅ ISR: revalidate every 60 seconds after first visit
-export const revalidate = 60;
+// Force dynamic rendering - no static caching
+export const dynamic = 'force-dynamic';
 
 // Generate static params for all English pages
 export async function generateStaticParams() {

@@ -1,8 +1,8 @@
 import { getSettings, getPageById } from '../../lib/wp';
 import DesignedHomepage from '../../components/DesignedHomepage';
 
-// ✅ ISR: revalidate this page every 60 seconds
-export const revalidate = 60;
+// Force dynamic rendering - no static caching
+export const dynamic = 'force-dynamic';
 
 export default async function SwedishHome() {
   const settings = await getSettings('sv');

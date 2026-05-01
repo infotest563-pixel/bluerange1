@@ -46,7 +46,7 @@ export async function getSettings(lang: string = 'sv'): Promise<WpSettings> {
     
     try {
         const res = await fetch(url, {
-            next: { revalidate: 60, tags: ['settings', `settings-${lang}`] },
+            cache: 'no-store',
             redirect: 'manual',
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -78,7 +78,7 @@ export async function getSite(lang: string = 'sv') {
 
     try {
         const res = await fetch(url, {
-            next: { revalidate: 3600, tags: ['site', `site-${lang}`] }, // Cache site info longer
+            cache: 'no-store',
             redirect: 'manual',
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
@@ -103,7 +103,7 @@ export async function getSite(lang: string = 'sv') {
 export async function getPageById(id: number, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/wp/v2/pages/${id}?_embed&lang=${lang}&acf_format=standard`, { 
-            next: { revalidate: 60, tags: ['page', `page-${id}`, `page-${lang}`] },
+            cache: 'no-store',
             redirect: 'manual'
         });
         
@@ -122,7 +122,7 @@ export async function getPageById(id: number, lang: string = 'sv') {
 
 export async function getMedia(id: number, lang: string = 'sv') {
     const media = await fetch(`${WP}/wp-json/wp/v2/media/${id}?lang=${lang}`, { 
-        next: { revalidate: 60, tags: ['media', `media-${id}`] },  // ✅ reduced from 3600 → 60 seconds
+        cache: 'no-store',
         redirect: 'manual'
     }).then(r => r.json());
     return transformWpImages(media);
@@ -131,7 +131,7 @@ export async function getMedia(id: number, lang: string = 'sv') {
 export async function getPageBySlug(slug: string, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/wp/v2/pages?slug=${slug}&_embed&lang=${lang}&acf_format=standard`, { 
-            next: { revalidate: 60, tags: ['page', `page-slug-${slug}`, `page-${lang}`] },
+            cache: 'no-store',
             redirect: 'manual'
         });
         
@@ -151,7 +151,7 @@ export async function getPageBySlug(slug: string, lang: string = 'sv') {
 export async function getPostBySlug(slug: string, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/wp/v2/posts?slug=${slug}&_embed&lang=${lang}&acf_format=standard`, { 
-            next: { revalidate: 60, tags: ['post', `post-slug-${slug}`, `post-${lang}`] },
+            cache: 'no-store',
             redirect: 'manual'
         });
         
@@ -171,7 +171,7 @@ export async function getPostBySlug(slug: string, lang: string = 'sv') {
 export async function getMenu(slug: string, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/headless/v1/menus/${slug}?lang=${lang}`, { 
-            next: { revalidate: 300, tags: ['menu', `menu-${slug}`, `menu-${lang}`] },
+            cache: 'no-store',
             redirect: 'manual'
         });
         if (!res.ok) return [];
@@ -190,7 +190,7 @@ export async function renderShortcode(code: string) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code }),
-            next: { revalidate: 60, tags: ['shortcode'] },
+            cache: 'no-store',
             redirect: 'manual'
         });
 
