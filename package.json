@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "sync-images": "node scripts/sync-wp-images.mjs",
+    "test-images": "node scripts/test-image-sync.mjs",
     "sync-and-deploy": "node scripts/sync-and-deploy.mjs",
     "prebuild": "node scripts/sync-wp-images.mjs"
   },
