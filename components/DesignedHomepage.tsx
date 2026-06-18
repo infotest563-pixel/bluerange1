@@ -126,7 +126,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                                 {acf.fantastic_customers_subtitle && <p>{acf.fantastic_customers_subtitle}</p>}
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div className="hm-frstbner-inner bl-inners">
                         <div className="wd-100">
                             {/* Swiper Structure */}
