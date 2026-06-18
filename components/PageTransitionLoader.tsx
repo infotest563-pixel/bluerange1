@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export default function PageTransitionLoader() {
+function PageTransitionLoaderInner() {
     const [isLoading, setIsLoading] = useState(false);
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -106,5 +106,13 @@ export default function PageTransitionLoader() {
                 Loading
             </div>
         </div>
+    );
+}
+
+export default function PageTransitionLoader() {
+    return (
+        <Suspense fallback={null}>
+            <PageTransitionLoaderInner />
+        </Suspense>
     );
 }
