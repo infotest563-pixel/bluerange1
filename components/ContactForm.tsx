@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { WP_URL } from '../lib/config';
 
-const CF7_ENDPOINT = 'https://dev-bluerange.pantheonsite.io/wp-json/contact-form-7/v1/contact-forms/70/feedback';
+const CF7_ENDPOINT = `${WP_URL}/wp-json/contact-form-7/v1/contact-forms/70/feedback`;
 
 const SOFTWARE_OPTIONS = [
     'Software To Choose', 'Shopify', 'Dinafastigheter.se', 'WordPress',

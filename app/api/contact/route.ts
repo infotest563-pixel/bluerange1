@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { WP_URL } from '../../../lib/config';
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     // Forward the form submission to WordPress Contact Form 7 REST API
     const wpResponse = await fetch(
-      `https://dev-bluerange.pantheonsite.io/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`,
+      `${WP_URL}/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`,
       {
         method: 'POST',
         body: formData,

@@ -99,7 +99,7 @@ export default async function Career({ page, lang = 'en' }: { page: any; lang?: 
                         <div className="bl-box col-sm-12 col-md-12">
                             <div className="wd-100 tx-20 tx-wht">
                                 {acf.customer_support_title && <h3>{acf.customer_support_title}</h3>}
-                                {acf.customer_support_content && <p>{acf.customer_support_content}</p>}
+                                {acf.customer_support_content && <div dangerouslySetInnerHTML={{ __html: acf.customer_support_content }} />}
                             </div>
                         </div>
                     </div>

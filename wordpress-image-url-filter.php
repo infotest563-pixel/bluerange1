@@ -12,7 +12,8 @@
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 // Your WordPress uploads URL (change this to match your site)
-define('WP_UPLOADS_URL', 'https://dev-bluerange.pantheonsite.io/wp-content/uploads/');
+$upload_dir = wp_upload_dir();
+define('WP_UPLOADS_URL', $upload_dir['baseurl'] . '/');
 
 // Only apply transformation to REST API requests (not admin)
 // Set to false to apply everywhere (will break admin)

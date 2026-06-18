@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-const WP = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP } from '../lib/config';
 const FORM_ID = '69';
 const UNIT_TAG = 'wpcf7-f69-o1';
 const ENDPOINT = `${WP}/wp-json/contact-form-7/v1/contact-forms/${FORM_ID}/feedback`;

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { WP_URL } from '../lib/config';
 
 const languages = [
     { code: 'sv', label: 'Svenska', flag: '/flags/se.png' },
@@ -60,7 +61,7 @@ export default function LanguageSwitcher() {
 
             try {
                 const res = await fetch(
-                    `https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages?slug=${slug}&lang=${currentLang}`
+                    `${WP_URL}/wp-json/wp/v2/pages?slug=${slug}&lang=${currentLang}`
                 );
                 const data = await res.json();
 
@@ -73,7 +74,7 @@ export default function LanguageSwitcher() {
                             const postId = page.translations[lang];
                             try {
                                 const r = await fetch(
-                                    `https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages/${postId}?lang=${lang}`
+                                    `${WP_URL}/wp-json/wp/v2/pages/${postId}?lang=${lang}`
                                 );
                                 const p = await r.json();
                                 if (p?.slug) urls[lang] = `/${lang}/${p.slug}`;

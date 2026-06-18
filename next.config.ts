@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+// WordPress backend URL — set in .env.local as NEXT_PUBLIC_WORDPRESS_URL
+// This is the only place it is referenced in config; all other files import from lib/config.ts
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://dev-bluerange.pantheonsite.io';
+const wpHostname = new URL(WP_URL).hostname;
+
 const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -23,7 +28,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'dev-bluerange.pantheonsite.io',
+        hostname: wpHostname,
         pathname: '/**',
       },
       {
@@ -89,7 +94,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/wp-content/:path*',
-        destination: 'https://dev-bluerange.pantheonsite.io/wp-content/:path*',
+        destination: `${WP_URL}/wp-content/:path*`,
       },
     ];
   },

@@ -1,4 +1,6 @@
+import React from 'react';
 import Link from 'next/link';
+import { WP_URL } from '../lib/config';
 import { resolveImage } from '../lib/resolveImage';
 import { wpImgUrl } from '../lib/localImage';
 import ContactForm from './ContactForm';
@@ -128,20 +130,20 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                     <div className="hm-frstbner-inner bl-inners">
                         <div className="wd-100">
                             {/* Swiper Structure */}
-                            <div className="swiper hm-firstbnr">
-                                <div className="swiper-wrapper hm_frtbnr-inner">
+                            <div className="swiper hm-firstbnr" suppressHydrationWarning={true}>
+                                <div className="swiper-wrapper hm_frtbnr-inner" suppressHydrationWarning={true}>
                                     {acf.fantastic_customers_logos?.map((row: any, i: number) => {
                                         const imgUrl = getImg(row.fantastic_images);
                                         if (!imgUrl) return null;
                                         return (
-                                            <div key={i} className="swiper-slide wd-100">
+                                            <div key={i} className="swiper-slide wd-100" suppressHydrationWarning={true}>
                                                 <img src={imgUrl} className="mx-100" alt="" />
                                             </div>
                                         );
                                     })}
                                 </div>
-                                <div className="swiper-button-next"></div>
-                                <div className="swiper-button-prev"></div>
+                                <div className="swiper-button-next" suppressHydrationWarning={true}></div>
+                                <div className="swiper-button-prev" suppressHydrationWarning={true}></div>
                             </div>
                         </div>
                     </div>
@@ -159,7 +161,8 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                 </div>
             </section>
 
-            {/* Service Support System */}
+            {/* Service Support System (HIDDEN AS REQUESTED) */}
+            {/*
             <section className="hm-sec-servicsuport sec-padd ed_section">
                 <div className="container">
                     <div className="row hm-servicsuport-inner top-round tx-center bounce-hover">
@@ -180,6 +183,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                     </div>
                 </div>
             </section>
+            */}
 
             {/* Sustainable Cloud Services */}
             <section className="hm-sec-sustainable sec-padd ed_section bl-overlay"
@@ -299,7 +303,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                         <div className="bl-box col-md-12 col-lg-6 ">
                             <div className="wd-100 text-center text-lg-right" id="map"></div>
                             <div className="wd-100 text-center mt-4">
-                                <img src="https://dev-bluerange.pantheonsite.io/wp-content/uploads/2023/11/headquarter.png" className="mx-100" alt="" />
+                                <img src={`${WP_URL}/wp-content/uploads/2023/11/headquarter.png`} className="mx-100" alt="" />
                             </div>
                         </div>
                     </div>
@@ -318,13 +322,13 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                             )}
                         </div>
                     </div>
-                    <div className="swiper hm-partswiper">
-                        <div className="swiper-wrapper hm_frtbnr-inner">
+                    <div className="swiper hm-partswiper" suppressHydrationWarning={true}>
+                        <div className="swiper-wrapper hm_frtbnr-inner" suppressHydrationWarning={true}>
                             {acf.software_logos?.map((row: any, i: number) => {
                                 const imgUrl = getImg(row.software_images);
                                 if (!imgUrl) return null;
                                 return (
-                                    <div key={i} className="swiper-slide wd-100">
+                                    <div key={i} className="swiper-slide wd-100" suppressHydrationWarning={true}>
                                         <img src={imgUrl} className="mx-100" alt="" />
                                     </div>
                                 );

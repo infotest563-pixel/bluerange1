@@ -1,10 +1,9 @@
 import { transformPage, transformWpImages } from './wpImageTransform';
-
-const WP = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP } from './config';
 
 /**
  * Rewrites a WordPress media URL to go through the Next.js /wp-content proxy.
- * e.g. https://dev-bluerange.pantheonsite.io/wp-content/uploads/2023/09/image.png
+ * e.g. {NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2023/09/image.png
  *   →  /wp-content/uploads/2023/09/image.png
  *
  * This means images are served via your own Vercel domain instead of the WP server.

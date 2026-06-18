@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { WP_URL } from '../lib/config';
 
 interface DomainResult {
     domain: string;
@@ -32,7 +33,7 @@ export default function DomainSearch({ buttonText = 'Search Domain' }: { buttonT
             });
 
             const res = await fetch(
-                'https://dev-bluerange.pantheonsite.io/wp-admin/admin-ajax.php',
+                `${WP_URL}/wp-admin/admin-ajax.php`,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -1,6 +1,7 @@
 import { getPageBySlug, getPostBySlug, getSettings } from '../../../lib/wp';
 import { redirect, notFound } from 'next/navigation';
 import WordPressPageRenderer from '../../../components/pages/WordPressPageRenderer';
+import { WP_URL } from '../../../lib/config';
 
 // Force dynamic rendering - no static caching
 export const dynamic = 'force-dynamic';
@@ -8,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // Generate static params for all Swedish pages
 export async function generateStaticParams() {
     try {
-        const res = await fetch('https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages?per_page=100&lang=sv');
+        const res = await fetch(`${WP_URL}/wp-json/wp/v2/pages?per_page=100&lang=sv`);
         const pages = await res.json();
         
         return pages.map((page: any) => ({

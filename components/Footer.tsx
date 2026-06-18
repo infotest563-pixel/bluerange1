@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { getMenu, getSettings } from '../lib/wp';
-
-const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP_HOST } from '../lib/config';
 
 export default async function Footer({ lang = 'sv' }: { lang?: string }) {
+    const currentYear = new Date().getFullYear();
     const settings = await getSettings(lang);
     const options = settings?.options || {};
     const formHtml = settings?.footer_form_html || '';
@@ -173,7 +173,7 @@ export default async function Footer({ lang = 'sv' }: { lang?: string }) {
                     <div className="row footer-bottom">
                         <div className="bl-box col-lg-12 col-xl-6 tx-wht ftr-copyrgt">
                             <div className="wd-100 tx-16">
-                                {options.copyright_title && <p>{options.copyright_title} {new Date().getFullYear()}</p>}
+                                {options.copyright_title && <p suppressHydrationWarning>{options.copyright_title} {currentYear}</p>}
                                 <p>
                                     {options.copyright_content}
                                     {options.cookies_link && (

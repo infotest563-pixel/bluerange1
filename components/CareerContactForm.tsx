@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-
-const WP = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP } from '../lib/config';
 
 const FORM_IDS: Record<string, string> = {
     en: '957',

@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-const WP = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP } from '../lib/config';
 // Form ID 948 — Colocation: Request will be answered
 const FORM_ID = '948';
 const UNIT_TAG = `wpcf7-f${FORM_ID}-o1`;

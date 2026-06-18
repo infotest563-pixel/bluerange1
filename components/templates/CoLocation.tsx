@@ -1,7 +1,6 @@
 import { resolveImage } from '../../lib/resolveImage';
 import CoLocationContactForm from '../../components/CoLocationContactForm';
-
-const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP_HOST } from '../../lib/config';
 
 export default async function CoLocation({ page }: { page: any }) {
     const acf = page.acf;

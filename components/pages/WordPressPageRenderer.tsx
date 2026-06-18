@@ -2,7 +2,7 @@ import VirtualServer from '../templates/VirtualServer';
 import CoLocation from '../templates/CoLocation';
 import S3Storage from '../templates/S3Storage';
 import Backup from '../templates/Backup';
-import InfrastructureAsAService from '../templates/InfrastructureAsAService';
+// import InfrastructureAsAService from '../templates/InfrastructureAsAService';
 import SoftwareHostingAsAService from '../templates/SoftwareHostingAsAService';
 import SoftwareEntrepreneurs from '../templates/SoftwareEntrepreneurs';
 import OurPartners from '../templates/OurPartners';
@@ -46,8 +46,8 @@ export default function WordPressPageRenderer({ page }: { page: any }) {
         case 'backup':
             return <Backup page={page} />;
         case 'infrastructure-as-a-service':
-        case 'infrastruktur-som-en-tjanst':
-            return <InfrastructureAsAService page={page} />;
+        // case 'infrastruktur-som-en-tjanst':
+        //     return <InfrastructureAsAService page={page} />;
         case 'software-hosting-as-a-service':
         case 'programvaruhosting-som-en-tjanst':
             return <SoftwareHostingAsAService page={page} />;

@@ -3,8 +3,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import DeskSidebar from './DeskSidebar';
 import { getMenu, getSite, getSettings } from '../lib/wp';
 import { wpImgUrl } from '../lib/localImage';
-
-const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP_HOST } from '../lib/config';
 
 export default async function Header({ lang = 'sv' }: { lang?: string }) {
     const siteData = await getSite(lang);
@@ -108,7 +107,7 @@ export default async function Header({ lang = 'sv' }: { lang?: string }) {
                     <div className="container">
 
                         {/* Logo */}
-                        <Link href="/" className="navbar-brand custom-logo-link" rel="home">
+                        <Link href={`/${lang}`} className="navbar-brand custom-logo-link" rel="home">
                             {logoUrl ? (
                                 <img
                                     src={wpImgUrl(logoUrl)}

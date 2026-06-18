@@ -1,20 +1,17 @@
 import './globals.css';
 import type { ReactNode } from 'react';
 import Script from 'next/script';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { headers } from 'next/headers';
+import PageTransitionLoader from '../components/PageTransitionLoader';
+import ClientScripts from '../components/ClientScripts';
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  // Detect language from URL path
-  const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '';
-  const lang = pathname.startsWith('/en') ? 'en' : 'sv';
-
   return (
-    <html lang={lang}>
+    <html suppressHydrationWarning={true}>
       <head>
+      {/* Remove browser-extension injected attributes (e.g. Bitwarden bis_skin_checked)
+          BEFORE React hydration runs — prevents hydration mismatch errors */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(){try{var o=new MutationObserver(function(ml){ml.forEach(function(m){if(m.type==='attributes'&&m.attributeName==='bis_skin_checked'){m.target.removeAttribute('bis_skin_checked');}});});o.observe(document.documentElement,{attributes:true,subtree:true,attributeFilter:['bis_skin_checked']});}catch(e){}})();` }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -29,11 +26,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <link rel="stylesheet" href="/understrap-child/style.css" />
       </head>
       <body suppressHydrationWarning={true}>
-        <Header lang={lang} />
+        <ClientScripts />
+        <PageTransitionLoader />
         <ErrorBoundary>
           {children}
         </ErrorBoundary>
-        <Footer lang={lang} />
 
         {/* jQuery — load before Bootstrap */}
         <Script
@@ -160,33 +157,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 }
               }
 
-              // Run on initial load
-              window.addEventListener('load', function() {
-                setTimeout(initSwipers, 300);
-                setTimeout(initMap, 500);
-              });
-
-              // Re-run on Next.js route changes
+              // Export functions to window so React Client Component can call them safely AFTER hydration completes
               if (typeof window !== 'undefined') {
-                var _pushState = history.pushState;
-                history.pushState = function() {
-                  _pushState.apply(history, arguments);
-                  setTimeout(initSwipers, 500);
-                  setTimeout(initMap, 700);
-                  // Re-trigger scroll animations for new page content
-                  setTimeout(function() {
-                    if (typeof jQuery !== 'undefined') {
-                      jQuery(".row , .bl-inners").each(function () {
-                        var $el = jQuery(this);
-                        var bot_obj = $el.offset().top + $el.outerHeight() * 0.6;
-                        var bot_win = jQuery(window).scrollTop() + jQuery(window).height();
-                        if (bot_win > bot_obj) {
-                          setTimeout(function() { $el.addClass("animated"); }, 400);
-                        }
-                      });
-                    }
-                  }, 600);
-                };
+                window.initSwipers = initSwipers;
+                window.initMap = initMap;
               }
             `
           }}

@@ -1,4 +1,6 @@
-const WP_HOST = 'https://dev-bluerange.pantheonsite.io';
+// WP host is read from NEXT_PUBLIC_WORDPRESS_URL via the central config.
+// Do NOT hardcode URLs here — update .env.local instead.
+import { WP_URL as WP_HOST } from './config';
 
 // English slug → Swedish slug
 const EN_TO_SV: Record<string, string> = {

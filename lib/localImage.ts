@@ -16,8 +16,10 @@
 declare const process: any;
 declare const require: any;
 
-const WP_BASE = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://dev-bluerange.pantheonsite.io';
-const IMAGE_MODE = process.env.IMAGE_MODE || 'proxy'; // 'local' or 'proxy'
+// WP_BASE and IMAGE_MODE are read from the central config which in turn
+// reads NEXT_PUBLIC_WORDPRESS_URL and IMAGE_MODE from .env.local.
+// Do NOT hardcode URLs here — change .env.local instead.
+import { WP_URL as WP_BASE, IMAGE_MODE } from './config';
 
 // Manifest cache (only used in local mode, server-side only)
 let manifestCache: Record<string, any> | null = null;

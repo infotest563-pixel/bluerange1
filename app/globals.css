@@ -1000,6 +1000,7 @@ nav#main-nav .container {
     justify-content: space-between !important;
     flex-wrap: nowrap !important;
     padding: 0 15px !important;
+    max-width: unset;
 }
 
 /* Desktop ≥1025px — show full nav, hide hamburger */
@@ -1007,7 +1008,8 @@ nav#main-nav .container {
     #navbarNavDropdown {
         display: flex !important;
         flex: 1 !important;
-        justify-content: flex-end !important;
+        /*justify-content: flex-end !important;*/
+        justify-content: center !important;
     }
 
     #navbarNavDropdown .navbar-nav {

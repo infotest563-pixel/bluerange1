@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-const WP = 'https://dev-bluerange.pantheonsite.io';
+import { WP_URL as WP } from '../lib/config';
 
 // Real numeric CF7 form IDs (extracted from rendered shortcode HTML)
 // EN: [contact-form-7 id="1465da7"] → wpcf7-f955-o1  → ID 955

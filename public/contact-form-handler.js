@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  var WP_API = 'https://dev-bluerange.pantheonsite.io/wp-json/contact-form-7/v1/contact-forms';
+  var NEXT_API = '/api/contact';
 
   function handleSubmit(form, e) {
     e.preventDefault();
@@ -44,7 +44,7 @@
       responseOutput.classList.remove('wpcf7-mail-sent-ok', 'wpcf7-mail-sent-ng', 'wpcf7-validation-errors');
     }
 
-    fetch(WP_API + '/' + formId + '/feedback', {
+    fetch(NEXT_API, {
       method: 'POST',
       body: formData
     })
