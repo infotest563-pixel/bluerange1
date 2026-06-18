@@ -1,4 +1,5 @@
 import './globals.css';
+import './flexible-content.css';
 import type { ReactNode } from 'react';
 import Script from 'next/script';
 import ErrorBoundary from '../components/ErrorBoundary';

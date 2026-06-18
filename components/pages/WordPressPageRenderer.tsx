@@ -1,3 +1,4 @@
+import FlexibleContent from '../templates/FlexibleContent';
 import VirtualServer from '../templates/VirtualServer';
 import CoLocation from '../templates/CoLocation';
 import S3Storage from '../templates/S3Storage';
@@ -104,6 +105,10 @@ export default function WordPressPageRenderer({ page }: { page: any }) {
             return <Services page={page} />;
         case 'screenconnect':
             return <ScreenConnect page={page} />;
+        case 'magento-hosting':
+        case 'wordpress-hosting':
+        case 'magento-hosting-trial-plan':
+            return <FlexibleContent page={page} />;
 
         // TODO: Implement other pages
         // case 'backup': return <Backup page={page} />;
